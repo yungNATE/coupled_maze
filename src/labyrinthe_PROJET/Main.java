@@ -13,20 +13,33 @@ public class Main {
 		// setup test
 		System.out.println("cc kiki");
 		
-		// lecture labyrinthe test
+		// lecture fichier test
 		JSONParser parser = new JSONParser();
-	      try {
-	         Object obj = parser.parse(new FileReader("F://LP/JAVA/labyrinth/ressources/maps.json"));
-	         JSONObject jsonObject = (JSONObject)obj;
-	         JSONObject map = (JSONObject) jsonObject.get("map");    
-	         System.out.println(map);
-//	         Iterator iterator = subjects.iterator();
-//	         while (iterator.hasNext()) {
-//	            System.out.println(iterator.next());
-//	         }
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      }
+		try {
+         Object obj = parser.parse(new FileReader("F://LP/JAVA/labyrinth/ressources/maps.json"));
+         JSONObject jsonObject = (JSONObject)obj;
+         JSONObject map = (JSONObject) jsonObject.get("map");    
+         //System.out.println(map);
+		} catch(Exception e) {
+         e.printStackTrace();
+		}
+		
+		// lecture labyrinth test
+		JSONParser parser2 = new JSONParser();
+		try {
+         Object obj = parser.parse(new FileReader("F://LP/JAVA/labyrinth/ressources/maps.json"));
+         JSONObject jsonObject = (JSONObject)obj;
+         JSONObject map = (JSONObject) jsonObject.get("map");
+         JSONArray premierNiveau = (JSONArray) map.get("premierNiveau");
+         
+	     Iterator iterator = premierNiveau.iterator();
+	     while (iterator.hasNext()) {
+	     	System.out.println(iterator.next());
+	     }
+	     
+		} catch(Exception e) {
+         e.printStackTrace();
+		}
 
 	}
 
