@@ -1,0 +1,56 @@
+{
+  "map": {
+    "premierNiveau" : [
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+    ],
+    "secondNiveau" : [
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+      {
+        "ligne" : [
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+          { "case" : "1" },
+        ]
+      },
+    ],
+  }
+}
