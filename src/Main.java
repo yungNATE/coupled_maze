@@ -1,5 +1,6 @@
 
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -40,7 +41,11 @@ public class Main {
             Iterator iterator = premierNiveau.iterator();
             while (iterator.hasNext()) {
 
+
                 System.out.println(iterator.next());
+
+                Object ligne = iterator.next();
+                System.out.println((Array)ligne);
             }
 
         } catch (Exception e) {
