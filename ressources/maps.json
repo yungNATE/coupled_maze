@@ -1,6 +1,6 @@
 {
   "map": {
-    "premierNiveau": [
+    "left": [
       [
         "start",
         "x",
@@ -15,7 +15,7 @@
       ]
     ]
   },
-  "secondNiveau": [
+  "right": [
     [
       "box",
       "hole",
