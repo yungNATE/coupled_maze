@@ -32,8 +32,14 @@ public class Main {
             JSONObject map = (JSONObject) jsonObject.get("map");
             JSONArray premierNiveau = (JSONArray) map.get("premierNiveau");
 
+            for (Object item: premierNiveau){
+                System.out.print(item);
+                System.out.print("ok");
+
+            }
             Iterator iterator = premierNiveau.iterator();
             while (iterator.hasNext()) {
+
                 System.out.println(iterator.next());
             }
 
