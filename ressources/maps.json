@@ -1,26 +1,32 @@
 {
   "map": {
-    "premierNiveau" : [
-      {
-        "ligne" : ["1","1","1","1"]
-      },
-	  {
-        "ligne" : ["1","1","1","1"]
-      },
-	  {
-        "ligne" : ["1","1","1","1"]
-      },
+    "premierNiveau": [
+      [
+        "start",
+        "x",
+        "wall",
+        "x"
+      ],
+      [
+        "end",
+        "x",
+        "box",
+        "x"
+      ]
+    ]
+  },
+  "secondNiveau": [
+    [
+      "box",
+      "hole",
+      "wall",
+      "x"
     ],
-    "secondNiveau" : [
-      {
-        "ligne" : ["1","1","1","1"]
-      },
-	  {
-        "ligne" : ["1","1","1","1"]
-      },
-	  {
-        "ligne" : ["1","1","1","1"]
-      },
-    ],
-  }
+    [
+      "x",
+      "x",
+      "start",
+      "end"
+    ]
+  ]
 }
