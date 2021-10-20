@@ -1,16 +1,7 @@
-
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-
 public class Main {
 
     public static void main(String[] args) {
+        GameMap gm = new GameMap();
         // setup test
         //System.out.println("cc kiki");
 
@@ -26,6 +17,7 @@ public class Main {
         } */
 
         // lecture labyrinth test
+        /*
         JSONParser parser2 = new JSONParser();
         try {
             Object obj = parser2.parse(new FileReader("ressources/maps.json"));
@@ -44,6 +36,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
 
     }
 
