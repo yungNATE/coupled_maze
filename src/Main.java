@@ -8,7 +8,7 @@ import org.json.simple.parser.JSONParser;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, CloneNotSupportedException {
         // setup test
         System.out.println("cc kiki");
         // lecture fichier test
@@ -43,7 +43,7 @@ public class Main {
 
         Fenetre f = new Fenetre(500,500);
         Player p = new Player(50,50, "ressources/balle.png", f);
-        p.icon.afficher(f, 50,50);
+        //p.icon.afficher(f, 50,50);
         p.move(Direction.DOWN);
         p.move(Direction.UP);
     }

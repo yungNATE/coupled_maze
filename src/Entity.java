@@ -10,52 +10,49 @@ abstract public class Entity {
     Fenetre fenetre;
     Image icon;
 
-    int positionX, positionY;
+    Position pos;
 
     Entity(int posX, int posY, String url, Fenetre f) {
         icon = new Image(url);
-        positionX = posX;
-        positionY = posY;
+        pos = new Position(posX, posY);
         fenetre = f;
     }
 
-    void move(Direction direction) throws InterruptedException {
+    void move(Direction direction) throws InterruptedException, CloneNotSupportedException {
         switch (direction) {
             case DOWN:
                 moveVertically(Direction.DOWN);
-                positionY += STEP_PIXELS;
                 break;
 
             case UP:
                 moveVertically(Direction.UP);
-                positionY -= STEP_PIXELS;
+                pos.posY -= STEP_PIXELS;
                 break;
 
             case RIGHT:
-                positionX += STEP_PIXELS;
+                pos.posY += STEP_PIXELS;
                 break;
 
             case LEFT:
-                positionX -= STEP_PIXELS;
+                pos.posY -= STEP_PIXELS;
                 break;
         }
     }
 
 
-    void moveVertically(Direction d) throws InterruptedException {
-        int currentPosition = positionY, oldPosition;
-        System.out.print("hey");
-        icon.effacer(fenetre, positionX, positionY);
+    void moveVertically(Direction d) throws InterruptedException, CloneNotSupportedException {
+        Position currentPosition = pos, oldPosition;
+
         for (int i = 1; i <= STEP_PIXELS; i++) {
-            oldPosition = currentPosition;
+            oldPosition = (Position) currentPosition.clone();
             TimeUnit.MILLISECONDS.sleep(50);
-            icon.effacer(fenetre, positionX, oldPosition);
-            if (d == Direction.DOWN) icon.afficher(fenetre, positionX, ++currentPosition);
+            icon.effacer(fenetre, oldPosition.posX, oldPosition.posY);
+            if (d == Direction.DOWN) icon.afficher(fenetre, currentPosition.posX, ++currentPosition.posY);
             else {
-                System.out.print("heyfor");
-                icon.afficher(fenetre, positionX, --currentPosition);
+                icon.afficher(fenetre, currentPosition.posX, --currentPosition.posY);
             }
         }
+
 
     }
 
