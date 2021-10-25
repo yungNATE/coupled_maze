@@ -44,8 +44,13 @@ public class Main {
         Fenetre f = new Fenetre(500,500);
         Player p = new Player(50,50, "ressources/balle.png", f);
         //p.icon.afficher(f, 50,50);
+        p.hitWall(Direction.LEFT);
+
+
         p.move(Direction.DOWN);
         p.move(Direction.UP);
+        p.move(Direction.RIGHT);
+        p.move(Direction.LEFT);
     }
 
 }
