@@ -5,8 +5,4 @@ public class Player extends Entity {
         super(posX, posY, url, f);
     }
 
-    @Override
-    void fall() {
-
-    }
 }

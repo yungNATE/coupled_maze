@@ -5,8 +5,5 @@ public class Box extends Entity{
         super(posX, posY, url, f);
     }
 
-    @Override
-    void fall() {
 
-    }
 }
