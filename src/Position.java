@@ -4,4 +4,7 @@ public class Position {
         posX = x;
         posX = y;
     }
+    public String toString(){
+        return posX + ":" + posY;
+    }
 }

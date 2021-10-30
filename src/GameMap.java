@@ -2,44 +2,57 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.swing.*;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-public class GameMap {
+public class GameMap extends JFrame {
 
-    //prop
-    Map<Position, Object> structure;
+    //PROP
+    HashMap<Position, Object> structure;
 
-    //constr
+    //CONSTR
     public GameMap(){
+        super("Labyby");
         structure = getData();
-
     }
 
-    //meth
-    public Map getData(){
+    //METH
+    public HashMap getData(){
         JSONParser parser = new JSONParser();
+        int i = 0,
+                posXTile = 0,
+                posYTile = 0,
+                tailleTitle = 50; //px
+        HashMap<Position, Object> structureContrs = new HashMap<>();
+
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
             JSONObject jsonObject = (JSONObject) obj;
             JSONObject map = (JSONObject) jsonObject.get("map");
             JSONArray premierNiveau = (JSONArray) map.get("left");
 
-            int i = 0,
-                posXTitle = 0,
-                posYTitle = 0,
-                tailleTitle = 50;
-            Map<Position, Object> structureContrs;
-
             for (Object line: premierNiveau){
+                posYTile+=50;
+                posXTile = 0;
                 for (Object tile : (ArrayList)line){
-                    structureContrs.put(new Position(posXTitle,posYTitle),  new Tile() ) ;
+                    structureContrs.put(new Position(posXTile+=50,posYTile),  new Tile(Tile.TypeCase.valueOf(tile.toString())));
+                    System.out.print(posYTile + ":" + + posXTile + ";");
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        structureContrs.entrySet().forEach(entry -> {
+            //System.out.println(entry.getKey().toString() + " " + entry.getValue().toString());
+        });
+
+        return structureContrs;
+
     }
 }
