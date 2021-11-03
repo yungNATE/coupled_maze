@@ -1,7 +1,9 @@
 public class Box extends Entity{
 
-    @Override
-    void move() {
 
+    Box(int posX, int posY, String url, Fenetre f) {
+        super(posX, posY, url, f);
     }
+
+
 }

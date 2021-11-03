@@ -1,7 +1,8 @@
-public class Player extends Entity{
+public class Player extends Entity {
 
-    @Override
-    void move() {
 
+    Player(int posX, int posY, String url, Fenetre f) {
+        super(posX, posY, url, f);
     }
+
 }
