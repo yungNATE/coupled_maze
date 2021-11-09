@@ -3,6 +3,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,10 @@ public class GameMap extends JFrame {
     public GameMap(){
         super("Labyby");
         structure = getData();
+
+
+        setSize(new Dimension(1000, 1000));
+        setVisible(true);
     }
 
     //METH
