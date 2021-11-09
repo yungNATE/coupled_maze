@@ -49,18 +49,18 @@ public class Main {
             e.printStackTrace();
         }
 
-        Fenetre f = new Fenetre(500,500);
-        Player p = new Player(50,50, "ressources/cat.jpg", f);
+        //Fenetre f = new Fenetre(500,500);
+        //Player p = new Player(50,50, "ressources/cat.jpg", f);
         //p.icon.afficher(f, 50,50);
-        p.hitWall(Direction.LEFT);
-        f.setVisible(true);
+        //p.hitWall(Direction.LEFT);
+        //f.setVisible(true);
         /*
         p.move(Direction.DOWN);
         p.move(Direction.UP);
         p.move(Direction.RIGHT);
         p.move(Direction.LEFT); */
 
-        p.fall();
+        //p.fall();
 
 
     }
