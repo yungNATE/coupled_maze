@@ -2,31 +2,31 @@
   "map": {
     "left": [
       [
-        "start",
-        "x",
-        "wall",
-        "x"
+        "START",
+        "FLOOR",
+        "WALL",
+        "HOLE"
       ],
       [
-        "end",
-        "x",
-        "box",
-        "x"
+        "END",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR"
       ]
     ]
   },
   "right": [
     [
-      "box",
-      "hole",
-      "wall",
-      "x"
+      "FLOOR",
+      "HOLE",
+      "WALL",
+      "FLOOR"
     ],
     [
-      "x",
-      "x",
-      "start",
-      "end"
+      "FLOOR",
+      "FLOOR",
+      "START",
+      "END"
     ]
   ]
 }
