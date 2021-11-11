@@ -39,4 +39,8 @@ public class Tile {
         return "error"; //error
     }
 
+    public void afficher(Fenetre f, Position pos){
+        f.obtenirZoneGraphique().drawImage(icon.getImage(), pos.posX, pos.posY,f);
+
+    }
 }

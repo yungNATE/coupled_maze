@@ -33,6 +33,7 @@ public class Main {
 
         // lecture labyrinth test
         JSONParser parser2 = new JSONParser();
+
         try {
             Object obj = parser2.parse(new FileReader("ressources/maps.json"));
             JSONObject jsonObject = (JSONObject) obj;
@@ -41,9 +42,9 @@ public class Main {
             int i = 0;
             for (Object line: premierNiveau){
 
-                System.out.print("Ligne: " + ++i);
+                //System.out.print("Ligne: " + ++i);
                 for (Object tile : (ArrayList)line){
-                    System.out.print(tile);
+                    //System.out.print(tile);
                 }
             }
         } catch (Exception e) {

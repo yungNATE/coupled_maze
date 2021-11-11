@@ -13,20 +13,20 @@
         "FLOOR",
         "FLOOR"
       ]
+    ],
+    "right": [
+      [
+        "FLOOR",
+        "HOLE",
+        "WALL",
+        "FLOOR"
+      ],
+      [
+        "FLOOR",
+        "FLOOR",
+        "START",
+        "END"
+      ]
     ]
   },
-  "right": [
-    [
-      "FLOOR",
-      "HOLE",
-      "WALL",
-      "FLOOR"
-    ],
-    [
-      "FLOOR",
-      "FLOOR",
-      "START",
-      "END"
-    ]
-  ]
 }

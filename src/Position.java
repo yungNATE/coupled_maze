@@ -1,11 +1,13 @@
-<<<<<<< HEAD
-
-public class Position implements Cloneable{
+public class Position {
     public int posX, posY;
 
-    public Position(int x, int y) {
+    public Position(int x,int y){
         posX = x;
-        posX = y;
+        posY = y;
+    }
+
+    public String toString(){
+        return posX + ":" + posY + "; ";
     }
 
     public Object clone() throws CloneNotSupportedException
@@ -13,16 +15,3 @@ public class Position implements Cloneable{
         return super.clone();
     }
 }
-
-=======
-public class Position {
-    public int posX, posY;
-    public Position(int x,int y){
-        posX = x;
-        posX = y;
-    }
-    public String toString(){
-        return posX + ":" + posY;
-    }
-}
->>>>>>> map
