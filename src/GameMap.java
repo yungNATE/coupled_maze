@@ -2,40 +2,36 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameMap extends Fenetre {
 
     //PROP
-    HashMap<Position, Tile> structure;
+    HashMap<Position, Tile> left;
+    HashMap<Position, Tile> right;
     Fenetre f;
 
     //CONSTR
-    public GameMap(){
-        super(0,0);
-        structure = getData();
-        afficherResultat(structure);
-
+    public GameMap() {
+        super(0, 0);
+       setUpLabyrinths();
+       drawMaps();
 
 
         setVisible(true);
     }
 
     //METH
-    public HashMap getData(){
+    public void setUpLabyrinths() {
         JSONParser parser = new JSONParser();
-        int i = 0,
-                tailleTitle = 50, //px
-                posXTile = 0,
-                posYTile = -tailleTitle;
+        int tileSize = 50,
+        posYTile, posXTile; //px
 
-        HashMap<Position, Tile> structureContrs = new HashMap<>();
+        HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
 
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
@@ -45,34 +41,42 @@ public class GameMap extends Fenetre {
             JSONArray premierNiveau = (JSONArray) map.get("left"); // pas besoin de prévoir le programme pour gérer n labyrinthes
             JSONArray secondNiveau = (JSONArray) map.get("right"); // donc on récupère à la main le 1er ainsi que le second
             System.out.println(map);
-            JSONArray[] niveaux = {premierNiveau, secondNiveau};
 
-            for (JSONArray niveau : niveaux) {
-                System.out.println(niveau);
-                for (Object line: niveau){
-                    posYTile+=tailleTitle;
-                    posXTile = -tailleTitle;
-                    for (Object tile : (ArrayList)line){
-                        posXTile+=tailleTitle;
-                        structureContrs.put(new Position(posXTile,posYTile),  new Tile(Tile.TypeCase.valueOf(tile.toString())));
-                        //System.out.print(new Position(posXTile,posYTile));
-                        //System.out.print(posXTile + ":" + posYTile + "; | ");
+            Map<JSONArray, Position> maps = new HashMap<>();
+            maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
+            maps.put(secondNiveau, new Position(300, 20)); // Offset for right map
+            int labyrinthNumber = 1;
+            for (Map.Entry<JSONArray, Position> currentMap : maps.entrySet()) {
+
+                JSONArray niveau = currentMap.getKey();
+                Position pos = currentMap.getValue();
+                posYTile = pos.posY;
+
+                for (Object line : niveau) {
+                    posYTile += tileSize;
+                    posXTile = pos.posX - tileSize;
+
+                    for (Object tile : (ArrayList) line) {
+                        posXTile += tileSize;
+                        currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
+
                     }
                 }
+                if (labyrinthNumber == 1) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
+                else right = (HashMap<Position, Tile>) currentLabyrinth.clone();
+                labyrinthNumber++;
+                currentLabyrinth = new HashMap<>();
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return structureContrs;
-
     }
-    private void afficherResultat(HashMap<Position,Tile> struct) {
-        for (var entry : struct.entrySet()) {
-            entry.getValue().afficher(this, entry.getKey());
-            //System.out.print(entry.getKey().posX);
+
+    private void drawMaps() {
+        for (HashMap<Position, Tile> map : List.of(left, right)) {
+            for (var entry : map.entrySet()) {
+                entry.getValue().afficher(this, entry.getKey());
+            }
         }
     }
 }

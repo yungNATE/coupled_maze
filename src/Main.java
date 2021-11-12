@@ -1,18 +1,10 @@
-
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -40,10 +32,10 @@ public class Main {
             JSONObject map = (JSONObject) jsonObject.get("map");
             JSONArray premierNiveau = (JSONArray) map.get("left");
             int i = 0;
-            for (Object line: premierNiveau){
+            for (Object line : premierNiveau) {
 
                 //System.out.print("Ligne: " + ++i);
-                for (Object tile : (ArrayList)line){
+                for (Object tile : (ArrayList) line) {
                     //System.out.print(tile);
                 }
             }

@@ -10,7 +10,6 @@ abstract public class Entity {
     static int STEP_PIXELS = 50;
     Fenetre fenetre;
     GameImage icon;
-
     Position pos;
 
     Entity(int posX, int posY, String url, Fenetre f) {
