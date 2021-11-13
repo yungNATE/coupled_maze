@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
-        new GameMap();
+        new GameMap("map");
         // setup test
         // lecture fichier test
         /*JSONParser parser = new JSONParser();

@@ -16,17 +16,17 @@ public class GameMap extends Fenetre {
     Fenetre f;
 
     //CONSTR
-    public GameMap() {
+    public GameMap(String map) {
         super(0, 0);
-       setUpLabyrinths();
-       drawMaps();
-
+        setUpLabyrinths(map);
+        drawMaps();
 
         setVisible(true);
     }
 
     //METH
-    public void setUpLabyrinths() {
+    // récupère la data des labyrinths dans le fichier JSON
+    public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
         int tileSize = 50,
         posYTile, posXTile; //px
@@ -36,7 +36,7 @@ public class GameMap extends Fenetre {
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
             JSONObject jsonObject = (JSONObject) obj;
-            JSONObject map = (JSONObject) jsonObject.get("map");
+            JSONObject map = (JSONObject) jsonObject.get(mapAJouer);
 
             JSONArray premierNiveau = (JSONArray) map.get("left"); // pas besoin de prévoir le programme pour gérer n labyrinthes
             JSONArray secondNiveau = (JSONArray) map.get("right"); // donc on récupère à la main le 1er ainsi que le second
@@ -59,7 +59,6 @@ public class GameMap extends Fenetre {
                     for (Object tile : (ArrayList) line) {
                         posXTile += tileSize;
                         currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
-
                     }
                 }
                 if (labyrinthNumber == 1) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
@@ -72,6 +71,7 @@ public class GameMap extends Fenetre {
         }
     }
 
+    // affiche les labyrinthes
     private void drawMaps() {
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
