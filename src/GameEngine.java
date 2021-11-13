@@ -39,8 +39,15 @@ public class GameEngine implements KeyListener {
 
     }
 
-    public void movePlayers(String direction){
+    public void movePlayers(Direction direction){
         System.out.println(direction);
+
+
+        // check if hole
+
+        // check if box
+
+        // check if wall
     }
 
     @Override
@@ -50,15 +57,15 @@ public class GameEngine implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String direction;
-        switch(e.getKeyChar()){
-            case 'z': direction = "UP";     break;
-            case 'q': direction = "LEFT";   break;
-            case 's': direction = "DOWN";   break;
-            case 'd': direction = "RIGHT";  break;
-            default : direction = "";        break;
+        Direction direction;
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_UP: direction = Direction.UP;     break;
+            case KeyEvent.VK_LEFT: direction = Direction.LEFT;   break;
+            case KeyEvent.VK_RIGHT: direction = Direction.RIGHT;   break;
+            case KeyEvent.VK_DOWN: direction = Direction.DOWN;  break;
+            default : direction = null;       break;
         }
-        if(direction != "") movePlayers(direction);
+        if(direction != null) movePlayers(direction);
     }
 
     @Override
