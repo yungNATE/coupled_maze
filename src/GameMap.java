@@ -11,9 +11,8 @@ import java.util.Map;
 public class GameMap extends Fenetre {
 
     //PROP
-    HashMap<Position, Tile> left;
-    HashMap<Position, Tile> right;
-    Fenetre f;
+   public HashMap<Position, Tile> left;
+   public  HashMap<Position, Tile> right;
 
     //CONSTR
     public GameMap(String map) {
@@ -71,7 +70,7 @@ public class GameMap extends Fenetre {
     }
 
     // affiche les labyrinthes
-    private void drawMaps() {
+    public void drawMaps() {
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
                 entry.getValue().afficher(this, entry.getKey());

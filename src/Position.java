@@ -1,4 +1,4 @@
-public class Position {
+public class Position implements Cloneable {
     public int posX, posY;
 
     public Position(int x,int y){

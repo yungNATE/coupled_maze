@@ -1,10 +1,11 @@
-public class GameEngine {
+public final class GameEngine {
 
     private GameMap currentMap;
     private Player player1;
     private Player player2;
-    public void setUp()
+    public void setUpGame(String map)
     {
-
+        currentMap.setUpLabyrinths(map);
+        System.out.print(currentMap.left);
     }
 }

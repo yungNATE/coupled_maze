@@ -11,11 +11,13 @@ abstract public class Entity {
     Fenetre fenetre;
     GameImage icon;
     Position pos;
+    GameMap map;
 
-    Entity(int posX, int posY, String url, Fenetre f) {
+    Entity(int posX, int posY, String url, GameMap gameMap) {
         icon = new GameImage(url);
         pos = new Position(posX, posY);
-        fenetre = f;
+        fenetre = (Fenetre) gameMap;
+        map = gameMap;
     }
 
     public void move(Direction direction) throws InterruptedException, CloneNotSupportedException {
@@ -100,6 +102,7 @@ abstract public class Entity {
         oldPosition = (Position) currentPosition.clone();
         TimeUnit.MILLISECONDS.sleep(20);
         icon.erase(fenetre, oldPosition.posX, oldPosition.posY);
+        map.drawMaps();
         if (d == Direction.DOWN) icon.display(fenetre, currentPosition.posX, ++currentPosition.posY);
         else if (d == Direction.UP) icon.display(fenetre, currentPosition.posX, --currentPosition.posY);
         else if (d == Direction.RIGHT) icon.display(fenetre, ++currentPosition.posX, currentPosition.posY);
