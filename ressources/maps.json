@@ -1,5 +1,5 @@
 {
-  "map": {
+  "map_1": {
     "left": [
       [
         "START",
@@ -29,4 +29,34 @@
       ]
     ]
   },
+  "map_2": {
+    "left": [
+      [
+        "START",
+        "FLOOR",
+        "WALL",
+        "HOLE"
+      ],
+      [
+        "END",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR"
+      ]
+    ],
+    "right": [
+      [
+        "FLOOR",
+        "HOLE",
+        "WALL",
+        "FLOOR"
+      ],
+      [
+        "FLOOR",
+        "FLOOR",
+        "START",
+        "END"
+      ]
+    ]
+  }
 }
