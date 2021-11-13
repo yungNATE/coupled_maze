@@ -31,7 +31,8 @@ public class Main {
         p.move(Direction.DOWN);
 
         p.move(Direction.RIGHT); */
-        GameEngine.setUpGame("map");
+
+        new GameEngine().setUpGame("map");
 
 
         /* //Window creation

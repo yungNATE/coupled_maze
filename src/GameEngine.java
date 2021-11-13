@@ -1,14 +1,16 @@
+import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public final class GameEngine {
+public class GameEngine implements KeyListener {
 
     private static GameMap map;
     private static Player player1;
     private static Player player2;
 
 
-    public static void setUpGame(String mapName) {
+    public void setUpGame(String mapName) {
         map = new GameMap(mapName);
         System.out.print(map.left);
 
@@ -17,6 +19,8 @@ public final class GameEngine {
 
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
         player2 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
+
+        map.addKeyListener(this);
 
         // add event listeners
         /*
@@ -32,6 +36,21 @@ public final class GameEngine {
             }
         });
         */
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyChar());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 }
