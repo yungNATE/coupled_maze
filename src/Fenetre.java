@@ -14,12 +14,12 @@ public class Fenetre extends JFrame { // notre interface graphique
 	private final int TEMPO_RAFRAICH = 40; // une image toutes les 40ms
 	private boolean arretProgramme;
 	
-	public Fenetre(int x, int y) {
+	public Fenetre(int x, int y, Color bgcolor) {
 		super("Fenêtre de dessin"); // creation de la fenetre
 		arretProgramme = true; // arrêt du programme à la fermeture de la fenêtre
 		addWindowListener(new GestionFenetre()); // traitements des événements de la fenêtre
 		
-		setBackground(new Color(255,255,255)); // couleur du fond
+		setBackground(bgcolor); // couleur du fond
 		setForeground(new Color(0,0,250)); // couleur de trace
 		// On cree le composant zone de dessin
 		zoneDeDessin = new ZoneGraphique();

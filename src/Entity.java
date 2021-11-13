@@ -108,10 +108,17 @@ abstract public class Entity {
         TimeUnit.MILLISECONDS.sleep(20);
         icon.erase(fenetre, oldPosition.posX, oldPosition.posY);
         map.drawMaps();
-        if (d == Direction.DOWN) icon.display(fenetre, currentPosition.posX, ++currentPosition.posY);
-        else if (d == Direction.UP) icon.display(fenetre, currentPosition.posX, --currentPosition.posY);
-        else if (d == Direction.RIGHT) icon.display(fenetre, ++currentPosition.posX, currentPosition.posY);
-        else icon.display(fenetre, --currentPosition.posX, currentPosition.posY);
+        switch(d) {
+           case DOWN:
+                icon.display(fenetre, currentPosition.posX, ++currentPosition.posY); break;
+           case UP:
+                icon.display(fenetre, currentPosition.posX, --currentPosition.posY); break;
+           case RIGHT:
+                icon.display(fenetre, ++currentPosition.posX, currentPosition.posY); break;
+           case LEFT:
+                icon.display(fenetre, --currentPosition.posX, currentPosition.posY); break;
+            default : break;
+        }
     }
 
 

@@ -2,6 +2,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +12,13 @@ import java.util.Map;
 public class GameMap extends Fenetre {
 
     //PROP
-   public HashMap<Position, Tile> left;
-   public  HashMap<Position, Tile> right;
+   public   HashMap<Position, Tile> left;
+   public   HashMap<Position, Tile> right;
+   int tileSize = 50;
 
     //CONSTR
     public GameMap(String map) {
-        super(0, 0);
+        super(0, 0, Color.BLACK);
         setUpLabyrinths(map);
         drawMaps();
 
@@ -27,8 +29,7 @@ public class GameMap extends Fenetre {
     // récupère la data des labyrinths dans le fichier JSON
     public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
-        int tileSize = 50,
-        posYTile, posXTile; //px
+        int posYTile, posXTile; //px
 
         HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
 
@@ -39,7 +40,7 @@ public class GameMap extends Fenetre {
 
             JSONArray premierNiveau = (JSONArray) map.get("left"); // pas besoin de prévoir le programme pour gérer n labyrinthes
             JSONArray secondNiveau = (JSONArray) map.get("right"); // donc on récupère à la main le 1er ainsi que le second
-            System.out.println(map);
+            //System.out.println(map);
 
             Map<JSONArray, Position> maps = new HashMap<>();
             maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
