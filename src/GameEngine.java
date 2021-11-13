@@ -1,9 +1,5 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public final class GameEngine {
 
@@ -12,9 +8,7 @@ public final class GameEngine {
     private static Player player2;
 
 
-
-    public static void setUpGame(String mapName)
-    {
+    public static void setUpGame(String mapName) {
         map = new GameMap(mapName);
         System.out.print(map.left);
 
@@ -24,7 +18,20 @@ public final class GameEngine {
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
         player2 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
 
-
+        // add event listeners
+        /*
+        (Fenetre) map.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    System.out.println("down");
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    System.out.println("up");
+                }
+            }
+        });
+        */
 
     }
 }
