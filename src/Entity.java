@@ -18,6 +18,11 @@ abstract public class Entity {
         pos = new Position(posX, posY);
         fenetre = (Fenetre) gameMap;
         map = gameMap;
+        display();
+    }
+
+    public void display(){
+        icon.display(fenetre, pos.posX, pos.posY);
     }
 
     public void move(Direction direction) throws InterruptedException, CloneNotSupportedException {

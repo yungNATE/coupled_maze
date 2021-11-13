@@ -24,13 +24,15 @@ import javax.swing.border.LineBorder;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
-        GameMap map = new GameMap("map");
+        /*GameMap map = new GameMap("map");
         Player p = new Player(20,20,"ressources/cat.jpg", map);
 
         p.move(Direction.DOWN);
         p.move(Direction.DOWN);
 
-        p.move(Direction.RIGHT);
+        p.move(Direction.RIGHT); */
+        GameEngine.setUpGame("map");
+
 
         /* //Window creation
         JFrame window = new JFrame("Labyrinth");
