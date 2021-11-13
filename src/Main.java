@@ -24,7 +24,7 @@ import javax.swing.border.LineBorder;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
-        //new GameMap("map");
+        new GameMap("map");
         //Window creation
         JFrame window = new JFrame("Labyrinth");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

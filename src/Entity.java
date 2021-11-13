@@ -100,6 +100,7 @@ abstract public class Entity {
         oldPosition = (Position) currentPosition.clone();
         TimeUnit.MILLISECONDS.sleep(20);
         icon.erase(fenetre, oldPosition.posX, oldPosition.posY);
+        //TODO : switch v
         if (d == Direction.DOWN) icon.display(fenetre, currentPosition.posX, ++currentPosition.posY);
         else if (d == Direction.UP) icon.display(fenetre, currentPosition.posX, --currentPosition.posY);
         else if (d == Direction.RIGHT) icon.display(fenetre, ++currentPosition.posX, currentPosition.posY);

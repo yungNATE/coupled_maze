@@ -13,7 +13,7 @@ public class GameMap extends Fenetre {
     //PROP
     HashMap<Position, Tile> left;
     HashMap<Position, Tile> right;
-    Fenetre f;
+    List<Position> caisses;
 
     //CONSTR
     public GameMap(String map) {
@@ -25,13 +25,14 @@ public class GameMap extends Fenetre {
     }
 
     //METH
-    // récupère la data des labyrinths dans le fichier JSON
+    // récupère la data des labyrinthes dans le fichier JSON
     public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
         int tileSize = 50,
         posYTile, posXTile; //px
 
         HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
+        caisses = new ArrayList();
 
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
@@ -57,8 +58,21 @@ public class GameMap extends Fenetre {
                     posXTile = pos.posX - tileSize;
 
                     for (Object tile : (ArrayList) line) {
-                        posXTile += tileSize;
-                        currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
+                        Position position =  new Position(posXTile+= tileSize, posYTile);
+                        String nomCase = tile.toString();
+
+                        switch(nomCase){
+
+                            case "BOX":
+                                nomCase = "FLOOR";
+                                caisses.add(position);
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(nomCase)));
                     }
                 }
                 if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
