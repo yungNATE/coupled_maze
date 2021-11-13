@@ -45,7 +45,7 @@ public class GameMap extends Fenetre {
             Map<JSONArray, Position> maps = new HashMap<>();
             maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
             maps.put(secondNiveau, new Position(300, 20)); // Offset for right map
-            int labyrinthNumber = 1;
+
             for (Map.Entry<JSONArray, Position> currentMap : maps.entrySet()) {
 
                 JSONArray niveau = currentMap.getKey();
@@ -61,9 +61,8 @@ public class GameMap extends Fenetre {
                         currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
                     }
                 }
-                if (labyrinthNumber == 1) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
+                if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
                 else right = (HashMap<Position, Tile>) currentLabyrinth.clone();
-                labyrinthNumber++;
                 currentLabyrinth = new HashMap<>();
             }
         } catch (Exception e) {
