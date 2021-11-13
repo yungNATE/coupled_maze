@@ -39,6 +39,10 @@ public class GameEngine implements KeyListener {
 
     }
 
+    public void movePlayers(String direction){
+        System.out.println(direction);
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -46,7 +50,15 @@ public class GameEngine implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+        String direction;
+        switch(e.getKeyChar()){
+            case 'z': direction = "UP";     break;
+            case 'q': direction = "LEFT";   break;
+            case 's': direction = "DOWN";   break;
+            case 'd': direction = "RIGHT";  break;
+            default : direction = "";        break;
+        }
+        if(direction != "") movePlayers(direction);
     }
 
     @Override
