@@ -1,6 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class GameEngine implements KeyListener {
     private static GameMap map;
     private static Player player1;
     private static Player player2;
-
+    private ArrayList<Box> boxes;
 
     public void setUpGame(String mapName) {
         map = new GameMap(mapName);
@@ -20,23 +21,21 @@ public class GameEngine implements KeyListener {
 
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
         player2 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
-
+        boxes = new ArrayList<>();
+        for (Position pos : map.caisses) {
+            boxes.add(new Box(pos.posX, pos.posY, "ressources/balle.png", map));
+        }
         map.addKeyListener(this);
     }
 
-    public void movePlayers(Direction direction, Position posDifference) throws CloneNotSupportedException {
-        Position posDiffCopie = (Position) posDifference.clone();
+    public void movePlayers(Direction direction) {
+
         for (Player player : List.of(player1, player2)) {
-
-            Position position = player.pos;
-            player.currentDirection = direction; // very important
-            posDifference.add(position);
-
             HashMap<Position, Tile> mapCurr = map.right;
             if (player == player1) mapCurr = map.left;
-
+            Position posDifference = player.getFuturePosition(direction);
             moveEntity(player, mapCurr, direction, posDifference);
-            posDifference = posDiffCopie;
+
         }
     }
 
@@ -73,8 +72,13 @@ public class GameEngine implements KeyListener {
                     break;
                 case START:
                 case FLOOR:
-
-                    e.move(direction); // check si caisse
+                    Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
+                    if (box != null)  // check si caisse
+                    {
+                        Position newBoxPosition = box.getFuturePosition(direction);
+                        moveEntity(box, map, direction, newBoxPosition);
+                    }
+                    e.move(direction);
                     break;
                 case OUT_OF_BOUNDS:
                     break;
@@ -113,28 +117,23 @@ public class GameEngine implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 direction = Direction.UP;
-                pos = new Position(0, -map.tileSize);
                 break;
             case KeyEvent.VK_LEFT:
                 direction = Direction.LEFT;
-                pos = new Position(-map.tileSize, 0);
                 break;
             case KeyEvent.VK_RIGHT:
                 direction = Direction.RIGHT;
-                pos = new Position(map.tileSize, 0);
                 break;
             case KeyEvent.VK_DOWN:
                 direction = Direction.DOWN;
-                pos = new Position(0, map.tileSize);
                 break;
             default:
                 direction = null;
-                pos = null;
                 break;
         }
         if (direction != null) {
             try {
-                movePlayers(direction, pos);
+                movePlayers(direction);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

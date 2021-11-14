@@ -15,6 +15,7 @@ public class GameMap extends Fenetre {
    public   HashMap<Position, Tile> left;
    public   HashMap<Position, Tile> right;
    int tileSize = 50;
+    List<Position> caisses;
 
     //CONSTR
     public GameMap(String map) {
@@ -32,6 +33,7 @@ public class GameMap extends Fenetre {
         int posYTile, posXTile; //px
 
         HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
+        caisses = new ArrayList();
 
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
@@ -59,7 +61,11 @@ public class GameMap extends Fenetre {
                     for (Object tile : (ArrayList) line) {
                         posXTile += tileSize;
                         Position position = new Position(posXTile, posYTile);
-                        currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
+                        if (tile.toString().equals("BOX")){
+                            caisses.add(position);
+                            currentLabyrinth.put(position, new Tile(Tile.TypeCase.FLOOR, position));
+                        }
+                        else currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
                     }
                 }
                 if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();

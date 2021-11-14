@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -48,5 +49,22 @@ abstract public class Entity {
     public void fall(Direction direction) {
         this.currentDirection = direction;
         new EntityAnimation(this, EntityAnimation.Animation.FALL).start();
+    }
+
+    public Position getFuturePosition (Direction direction)
+    {
+        switch (direction) {
+            case UP:
+                return new Position(pos.posX, pos.posY - map.tileSize);
+            case LEFT:
+                return new Position(pos.posX - map.tileSize, pos.posY);
+            case RIGHT:
+                return new Position(pos.posX + map.tileSize, pos.posY);
+            case DOWN:
+                return new Position(pos.posX, pos.posY + map.tileSize);
+            default:
+                return null;
+        }
+
     }
 }
