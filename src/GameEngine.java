@@ -40,9 +40,11 @@ public class GameEngine implements KeyListener {
         System.out.println(e);
         System.out.println(posDifference);
         System.out.println(map);
-        Tile.TypeCase arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElseThrow().getValue().type;
-
-        switch (arrivee) {
+        Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
+        Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElseThrow().getValue();
+        e.currentTile = depart;
+        e.nextTile = arrivee;
+        switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
                 break;
             case WALL:
@@ -52,6 +54,7 @@ public class GameEngine implements KeyListener {
                 e.fall(direction);
                 break;
             case FLOOR:
+
                 e.move(direction); // check si caisse
                 break;
         }

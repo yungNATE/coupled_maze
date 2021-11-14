@@ -12,14 +12,15 @@ public class Tile {
         HOLE,
         FLOOR
     }
-
+    Position pos;
     TypeCase type;
     GameImage icon;
     String folder = "ressources/textures/";
 
-    public Tile(TypeCase typeCase){
+    public Tile(TypeCase typeCase, Position position){
         type = typeCase;
         icon = new GameImage(getPath(type.toString(), folder));
+        pos=position;
 
     }
 
@@ -40,6 +41,10 @@ public class Tile {
     }
 
     public void afficher(Fenetre f, Position pos){
+        icon.display(f, pos.posX, pos.posY);
+    }
+
+    public void afficher(Fenetre f){
         icon.display(f, pos.posX, pos.posY);
     }
 }

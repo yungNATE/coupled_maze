@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class EntityAnimation extends Thread {
@@ -11,20 +12,18 @@ public class EntityAnimation extends Thread {
     volatile Entity e;
     volatile boolean isRunning = false;
     Fenetre fenetre;
+    Tile originalTile;
 
     public EntityAnimation(Entity entity, Animation a) {
         e = entity;
         ani = a;
         fenetre = entity.fenetre;
-    }
-
-    public void setAnimation(Animation animation) {
-        ani = animation;
+        originalTile = entity.currentTile;
     }
 
     @Override
     public void run() {
-        if (e.isMoving != true) {
+        if (!e.isMoving) {
 
                 e.isMoving = true;
                 switch (ani) {
@@ -47,37 +46,29 @@ public class EntityAnimation extends Thread {
 
 
     private void moveOneTile() {
-        for (int i = 1; i <= STEP_PIXELS; i++) {
-            moveOnePixel(e.currentDirection);
+
+        for (int i = 1; i <= STEP_PIXELS/2; i++) {
+            moveTwoPixels(e.currentDirection);
         }
         e.icon.display(fenetre, e.pos.posX, e.pos.posY); // display over top of map
     }
 
-    private void moveOnePixel(Direction d) {
-        Position oldPosition = null;
-        try {
-            oldPosition = (Position) e.pos.clone();
-        } catch (CloneNotSupportedException cloneNotSupportedException) {
-            cloneNotSupportedException.printStackTrace();
-        }
-        e.icon.erase(fenetre, oldPosition.posX, oldPosition.posY);
-        //fenetre.repaint(); //dessiner l'image de fond pour effacer les ancienes positions des flocons
+    private void moveTwoPixels(Direction d) {
 
-        e.map.drawMaps();
-        // fenetre.repaint();
+        originalTile.afficher(fenetre); // afficher tile en dessous du joueur
 
         switch (d) {
             case DOWN:
-                e.icon.display(fenetre, e.pos.posX, ++e.pos.posY);
+                e.icon.display(fenetre, e.pos.posX, e.pos.posY += 2);
                 break;
             case UP:
-                e.icon.display(fenetre, e.pos.posX, --e.pos.posY);
+                e.icon.display(fenetre, e.pos.posX, e.pos.posY -= 2);
                 break;
             case RIGHT:
-                e.icon.display(fenetre, ++e.pos.posX, e.pos.posY);
+                e.icon.display(fenetre, e.pos.posX += 2, e.pos.posY);
                 break;
             case LEFT:
-                e.icon.display(fenetre, --e.pos.posX, e.pos.posY);
+                e.icon.display(fenetre, e.pos.posX -= 2, e.pos.posY);
                 break;
             default:
                 break;
@@ -108,30 +99,36 @@ public class EntityAnimation extends Thread {
                 hitWallAnimation(Direction.LEFT, Direction.RIGHT);
                 break;
         }
+
     }
 
     private void hitWallAnimation(Direction d, Direction opposite) {
 
-        for (int i = 1; i <= STEP_PIXELS / 2; i++) {
-            moveOnePixel(d);
-        }
         for (int i = 1; i <= STEP_PIXELS / 8; i++) {
-            moveOnePixel(opposite);
+            moveTwoPixels(d);
         }
+        e.nextTile.afficher(fenetre);
+        for (int i = 1; i <= STEP_PIXELS / 16; i++) {
+            moveTwoPixels(opposite);
+        }
+
+        for (int i = 1; i <= STEP_PIXELS / 16; i++) {
+            moveTwoPixels(d);
+        }
+
         for (int i = 1; i <= STEP_PIXELS / 8; i++) {
-            moveOnePixel(d);
+            moveTwoPixels(opposite);
         }
-        for (int i = 1; i <= STEP_PIXELS / 2; i++) {
-            moveOnePixel(opposite);
-        }
+        e.nextTile.afficher(fenetre);
+
     }
 
     public void fall() {
-
-        for (int i = 1; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
+        moveOneTile();
+        for (int i = 0; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
             Image newimg = e.icon.icon.getImage().getScaledInstance(STEP_PIXELS - i, STEP_PIXELS - i, java.awt.Image.SCALE_SMOOTH);
             e.icon = new GameImage(new ImageIcon(newimg));
-            e.icon.display(fenetre, 60 + i / 2, 60 + i / 2);
+            e.icon.display(fenetre, e.pos.posX + i / 2, e.pos.posY + i / 2);
             try {
                 sleep(50);
                 TimeUnit.MILLISECONDS.sleep(50);
@@ -139,7 +136,7 @@ public class EntityAnimation extends Thread {
             } catch (InterruptedException interruptedException) {
                 isRunning = false;
             }
-            e.icon.erase(fenetre, 60 + i / 2, 60 + i / 2);
+            originalTile.afficher(fenetre);
 
 
         }

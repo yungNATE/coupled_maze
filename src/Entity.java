@@ -16,6 +16,8 @@ abstract public class Entity {
     Position pos;
     GameMap map;
     Direction currentDirection;
+    Tile currentTile;
+    Tile nextTile;
     volatile Boolean isMoving = false;
 
     Entity(int posX, int posY, String url, GameMap gameMap) {

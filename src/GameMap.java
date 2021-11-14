@@ -58,7 +58,8 @@ public class GameMap extends Fenetre {
 
                     for (Object tile : (ArrayList) line) {
                         posXTile += tileSize;
-                        currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
+                        Position position = new Position(posXTile, posYTile);
+                        currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
                     }
                 }
                 if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
@@ -74,7 +75,7 @@ public class GameMap extends Fenetre {
     public void drawMaps() {
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
-                entry.getValue().afficher(this, entry.getKey());
+                entry.getValue().afficher(this);
             }
         }
     }
