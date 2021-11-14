@@ -57,7 +57,7 @@ public class GameEngine implements KeyListener {
     Boolean moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
         if (!e.isMoving) {
             Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
-            Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
+            Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
             e.currentTile = depart;
 
 
@@ -69,25 +69,22 @@ public class GameEngine implements KeyListener {
             }
 
             switch (arrivee.type) {
-                case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
-
+                case END:
                     updateScore(e);
 
                     if (depart.type != Tile.TypeCase.END) e.move(direction);
                     checkForWin((Player) e);
 
-
                     return true;
-                case HOLE:  // tomber() => terminer perdant
+                case HOLE:
                     e.fall(direction);
                     if (e instanceof Box) boxes.remove(e);
                     return true;
                 case START:
                 case FLOOR:
                     updateScore(e);
-                    System.out.println(this.nombrePas);
                     Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
-                    if (box != null)  // check si caisse
+                    if (box != null)
                     {
                         Position newBoxPosition = box.getFuturePosition(direction);
                         if (moveEntity(box, map, direction, newBoxPosition)) e.move(direction);
@@ -98,7 +95,7 @@ public class GameEngine implements KeyListener {
                     return true;
 
                 case WALL:
-                    e.hitWall(direction); // hitwall(direction)
+                    e.hitWall(direction);
 
                 case OUT_OF_BOUNDS:
 
@@ -135,7 +132,6 @@ public class GameEngine implements KeyListener {
                 btn_refresh.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        //dispose();
                         new GameEngine().setUpGame(map.name);
                     }
                 });

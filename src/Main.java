@@ -103,7 +103,7 @@ public class Main {
 
                     getJsonMap = jsonObject.keySet().toArray();
                 } catch (Exception e) {
-                    System.out.println("Erreur");
+
                 }
                 for (Object obj : getJsonMap) {
                     selectionMap.addItem(obj.toString());
