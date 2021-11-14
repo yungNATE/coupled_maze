@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,8 +27,4 @@ public class GameImage {
         f.obtenirZoneGraphique().drawImage(icon.getImage(),x,y,f);
     }
 
-    public void erase(Fenetre f, int x, int y) { // effacer l'image
-        f.obtenirZoneGraphique().clearRect(x,y,
-                icon.getIconWidth(), icon.getIconHeight());
-    }
 }
