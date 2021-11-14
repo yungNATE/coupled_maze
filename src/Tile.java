@@ -11,7 +11,8 @@ public class Tile {
         WALL,
         HOLE,
         FLOOR,
-        OUT_OF_BOUNDS
+        OUT_OF_BOUNDS,
+        BOX
     }
     Position pos;
     TypeCase type;

@@ -2,43 +2,227 @@
   "map": {
     "left": [
       [
-        "START",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
         "END",
         "WALL",
-        "HOLE"
+        "WALL",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "WALL",
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "WALL",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "BOX",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
       ],
       [
         "END",
         "FLOOR",
         "FLOOR",
-        "FLOOR"
+        "WALL",
+        "WALL",
+        "HOLE",
+        "FLOOR",
+        "WALL",
+        "WALL"
       ],
       [
-        "END",
+        "WALL",
         "FLOOR",
         "FLOOR",
-        "FLOOR"
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "START",
+        "WALL",
+        "WALL",
+        "WALL"
       ]
     ],
     "right": [
       [
-        "FLOOR",
-        "HOLE",
         "WALL",
-        "FLOOR"
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "END",
+        "WALL",
+        "WALL"
       ],
       [
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "FLOOR",
+        "WALL",
         "FLOOR",
         "FLOOR",
-        "START",
-        "END"
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "HOLE",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "BOX",
+        "FLOOR",
+        "HOLE",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "BOX",
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "FLOOR",
+        "WALL",
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
       ],
       [
         "END",
         "FLOOR",
         "FLOOR",
-        "FLOOR"
+        "WALL",
+        "WALL",
+        "HOLE",
+        "FLOOR",
+        "WALL",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR",
+        "WALL"
+      ],
+      [
+        "WALL",
+        "START",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL",
+        "WALL"
       ]
     ]
-  },
+  }
 }

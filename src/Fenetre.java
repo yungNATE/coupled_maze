@@ -35,7 +35,7 @@ public class Fenetre extends JFrame { // notre interface graphique
 		getContentPane().add(zoneDeDessin); 
 
 		//setSize(x,y); // Utilisable à la place du pack si on ne fait pas de setPreferredSize
-		setPreferredSize(new Dimension(550, 300));
+		setPreferredSize(new Dimension(1200, 1200));
 		setResizable(false);
 		pack();
 		setVisible(true);

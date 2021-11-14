@@ -44,7 +44,7 @@ public class GameMap extends Fenetre {
 
             Map<JSONArray, Position> maps = new HashMap<>();
             maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
-            maps.put(secondNiveau, new Position(300, 20)); // Offset for right map
+            maps.put(secondNiveau, new Position(600, 20)); // Offset for right map
 
             for (Map.Entry<JSONArray, Position> currentMap : maps.entrySet()) {
 
