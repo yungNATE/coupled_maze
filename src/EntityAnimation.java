@@ -147,11 +147,11 @@ public class EntityAnimation extends Thread {
         if (e instanceof Player) {
             JOptionPane.showMessageDialog(fenetre, "GAME OVER!","Oops...", JOptionPane.ERROR_MESSAGE);
 
-            originalTile.afficher(fenetre);
+            //afficher(fenetre);
         }
         try{
             //play fall sound
-            URL url = this.getClass().getClassLoader().getResource("./sounds/fall.mp3");
+            URL url = this.getClass().getClassLoader().getResource("sounds/fall.mp3");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);

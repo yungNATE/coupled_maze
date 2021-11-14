@@ -24,7 +24,7 @@ public class GameEngine implements KeyListener {
         player2 = new Player(start.posX, start.posY, "ressources/paf.png", map);
         boxes = new ArrayList<>();
         for (Position pos : map.caisses) {
-            boxes.add(new Box(pos.posX, pos.posY, "ressources/balle.png", map));
+            boxes.add(new Box(pos.posX, pos.posY, "ressources/textures/BOX.png", map));
         }
 
         map.addKeyListener(this);
