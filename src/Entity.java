@@ -19,13 +19,14 @@ abstract public class Entity {
     Direction currentDirection;
     Tile currentTile;
     Tile nextTile;
-    volatile Boolean isMoving = false;
+    volatile Boolean isMoving;
 
     Entity(int posX, int posY, String url, GameMap gameMap) {
         icon = new GameImage(url);
         pos = new Position(posX, posY);
         fenetre = (Fenetre) gameMap;
         map = gameMap;
+        isMoving = false;
         display();
     }
 

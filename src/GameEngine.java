@@ -41,42 +41,45 @@ public class GameEngine implements KeyListener {
     }
 
     void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
-        Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
-        Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
-        e.currentTile = depart;
+        if (!e.isMoving) {
+            System.out.println(e.isMoving);
+            System.out.println(e.pos);
+            Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
+            Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
+            e.currentTile = depart;
 
 
-        if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) {
-            arrivee.type = Tile.TypeCase.END;
-            e.nextTile = depart;
-        } else if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) {
-            e.nextTile = arrivee;
+            if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) {
+                arrivee.type = Tile.TypeCase.END;
+                e.nextTile = depart;
+            } else if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) {
+                e.nextTile = arrivee;
+            }
+
+            switch (arrivee.type) {
+                case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
+                    if (depart.type != Tile.TypeCase.END) e.move(direction);
+                    if (checkForWin((Player) e)) {
+                        System.out.println("ca marche");
+                    } else {
+                        System.out.println("pas ouf");
+                    }
+                    break;
+                case WALL:
+                    e.hitWall(direction); // hitwall(direction)
+                    break;
+                case HOLE:  // tomber() => terminer perdant
+                    e.fall(direction);
+                    break;
+                case START:
+                case FLOOR:
+
+                    e.move(direction); // check si caisse
+                    break;
+                case OUT_OF_BOUNDS:
+                    break;
+            }
         }
-
-        switch (arrivee.type) {
-            case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
-                if (depart.type != Tile.TypeCase.END) e.move(direction);
-                if (checkForWin((Player) e)) {
-                    System.out.println("ca marche");
-                } else {
-                    System.out.println("pas ouf");
-                }
-                break;
-            case WALL:
-                e.hitWall(direction); // hitwall(direction)
-                break;
-            case HOLE:  // tomber() => terminer perdant
-                e.fall(direction);
-                break;
-            case START:
-            case FLOOR:
-
-                e.move(direction); // check si caisse
-                break;
-            case OUT_OF_BOUNDS:
-                break;
-        }
-
     }
 
     // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
