@@ -63,7 +63,9 @@ public class GameEngine implements KeyListener {
                     break;
                 case HOLE:  // tomber() => terminer perdant
                     e.fall(direction);
-                    this.map.ecranDeFin(false);
+                    while(e.isMoving){}
+                    if (e instanceof Player) this.map.ecranDeFin(false);
+                    else if (e instanceof Box) boxes.remove(e);
                     break;
                 case START:
                 case FLOOR:
