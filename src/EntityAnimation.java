@@ -1,5 +1,11 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -123,7 +129,7 @@ public class EntityAnimation extends Thread {
         e.nextTile.afficher(fenetre);
     }
 
-    public void fall() {
+    public void fall(){
         moveOneTile();
         for (int i = 0; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
             Image newimg = e.icon.icon.getImage().getScaledInstance(STEP_PIXELS - i, STEP_PIXELS - i, java.awt.Image.SCALE_SMOOTH);
@@ -137,8 +143,22 @@ public class EntityAnimation extends Thread {
                 isRunning = false;
             }
             originalTile.afficher(fenetre);
-
         }
+        try{
+            //play fall sound
+            URL url = this.getClass().getClassLoader().getResource("./sounds/fall.mp3");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+            unsupportedAudioFileException.printStackTrace();
+        } catch (LineUnavailableException lineUnavailableException) {
+            lineUnavailableException.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
     }
 }
 
