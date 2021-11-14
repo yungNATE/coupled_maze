@@ -88,7 +88,7 @@ public class Main {
                 title.setFont(new Font("Tahoma", Font.BOLD, 20));
                 title.setForeground(new Color(255,255,255));
 
-                JButton btn_return = new JButton("<-");
+                JButton btn_return = new JButton("Retour ...");
                 btn_return.setBackground(new Color(243,101,71));
                 btn_return.setForeground(new Color(255,255,255));
                 btn_return.setBorderPainted(false);
@@ -119,14 +119,12 @@ public class Main {
                     JSONObject jsonObject = (JSONObject) obj;
 
                     getJsonMap = jsonObject.keySet().toArray();
-                    System.out.println("OUI :"+ getJsonMap);
                 }
                 catch (Exception e){
                     System.out.println("Erreur");
                 }
                 for (Object obj : getJsonMap)
                 {
-                    //System.out.println(obj.toString());
                     selectionMap.addItem(obj.toString());
                 }
 
@@ -219,7 +217,7 @@ public class Main {
                 title.setFont(new Font("Tahoma", Font.BOLD, 20));
                 title.setForeground(new Color(255,255,255));
 
-                JButton btn_return = new JButton("<-");
+                JButton btn_return = new JButton("Retour...");
                 btn_return.setBackground(new Color(243,101,71));
                 btn_return.setForeground(new Color(255,255,255));
                 btn_return.setBorderPainted(false);
