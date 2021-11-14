@@ -30,10 +30,10 @@ public class Main {
 
         p.move(Direction.RIGHT); */
 
-        new GameEngine().setUpGame("map");
+        //new GameEngine().setUpGame("map");
 
 
-        /* //Window creation
+        //Window creation
         JFrame window = new JFrame("Labyrinth");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1200,600);
@@ -51,17 +51,6 @@ public class Main {
         Border bline = new LineBorder(Color.BLACK);
         Border bmargin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(bline, bmargin);
-
-        try {
-            Object obj = (new JSONParser()).parse(new FileReader("ressources/maps.json"));
-            JSONObject jsonObject = (JSONObject) obj;
-
-            Set mapChoose = jsonObject.keySet();
-            System.out.println("OUI :"+ mapChoose);
-        }
-        catch (Exception e){
-            System.out.println("Erreur");
-        }
 
         JButton btn_new = new JButton("NEW GAME");
         btn_new.setBackground(new Color(243,101,71));
@@ -122,11 +111,28 @@ public class Main {
                 menu_new.add(new JSeparator());
                 menu_new.add(btn_return);
 
-                int FIRST_ELEMENT = 0;
-                String[] mapChoose = {"map_1","map_2"};
-                JComboBox<String> selectionMap = new JComboBox<String>(mapChoose);
+                Object[] getJsonMap = new Object[0];
+                JComboBox<String> selectionMap = new JComboBox<String>();
 
-                JLabel selection = new JLabel("Choix de la map :");
+                try {
+                    Object obj = (new JSONParser()).parse(new FileReader("ressources/maps.json"));
+                    JSONObject jsonObject = (JSONObject) obj;
+
+                    getJsonMap = jsonObject.keySet().toArray();
+                    System.out.println("OUI :"+ getJsonMap);
+                }
+                catch (Exception e){
+                    System.out.println("Erreur");
+                }
+                for (Object obj : getJsonMap)
+                {
+                    //System.out.println(obj.toString());
+                    selectionMap.addItem(obj.toString());
+                }
+
+
+
+                JLabel selection = new JLabel("Choix de la difficulté :");
                 selection.setBounds(150,100,400,100);
                 selection.setFont(new Font("Tahoma", Font.BOLD, 20));
                 selection.setForeground(new Color(255,255,255));
@@ -147,7 +153,7 @@ public class Main {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         String map = selectionMap.getSelectedItem().toString();
-                        new GameEngine().setUp(map);
+                        new GameEngine().setUpGame(map);
                         window.dispose();
                         new_game.dispose();
                     }
@@ -343,7 +349,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
- */
     }
 }
 
