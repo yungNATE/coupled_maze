@@ -50,6 +50,7 @@ public class EntityAnimation extends Thread {
         for (int i = 1; i <= STEP_PIXELS; i++) {
             moveOnePixel(e.currentDirection);
         }
+        e.icon.display(fenetre, e.pos.posX, e.pos.posY); // display over top of map
     }
 
     private void moveOnePixel(Direction d) {
@@ -59,8 +60,9 @@ public class EntityAnimation extends Thread {
         } catch (CloneNotSupportedException cloneNotSupportedException) {
             cloneNotSupportedException.printStackTrace();
         }
-        fenetre.repaint(); //dessiner l'image de fond pour effacer les ancienes positions des flocons
         e.icon.erase(fenetre, oldPosition.posX, oldPosition.posY);
+        //fenetre.repaint(); //dessiner l'image de fond pour effacer les ancienes positions des flocons
+
         e.map.drawMaps();
         // fenetre.repaint();
 
