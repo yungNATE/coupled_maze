@@ -3,7 +3,6 @@ import java.awt.event.KeyListener;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GameEngine implements KeyListener {
 
@@ -45,14 +44,23 @@ public class GameEngine implements KeyListener {
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
         Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
         e.currentTile = depart;
-        if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) e.nextTile = depart;
-        else if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) e.nextTile = arrivee;
+
+
+        if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) {
+            arrivee.type = Tile.TypeCase.END;
+            e.nextTile = depart;
+        } else if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) {
+            e.nextTile = arrivee;
+        }
 
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
-                e.move(direction);
-                if (checkForWin((Player) e)) { System.out.println("ca marche"); }
-                                        else { System.out.println("pas ouf"); }
+                if (depart.type != Tile.TypeCase.END) e.move(direction);
+                if (checkForWin((Player) e)) {
+                    System.out.println("ca marche");
+                } else {
+                    System.out.println("pas ouf");
+                }
                 break;
             case WALL:
                 e.hitWall(direction); // hitwall(direction)
@@ -83,7 +91,7 @@ public class GameEngine implements KeyListener {
         System.out.println("1:" + player1.nextTile);
         System.out.println("2:" + player2.nextTile);
 
-        if(otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
+        if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
 
             return true;
         }

@@ -99,6 +99,7 @@ public class EntityAnimation extends Thread {
                 hitWallAnimation(Direction.LEFT, Direction.RIGHT);
                 break;
         }
+        e.display();
 
     }
 
@@ -120,8 +121,6 @@ public class EntityAnimation extends Thread {
             moveTwoPixels(opposite);
         }
         e.nextTile.afficher(fenetre);
-        e.display();
-
     }
 
     public void fall() {
