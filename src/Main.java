@@ -111,27 +111,28 @@ public class Main {
                 menu_new.add(new JSeparator());
                 menu_new.add(btn_return);
 
-                String[] mapChoose1 = {"map_1","map_2"};
-                JComboBox<String> selectionMap = new JComboBox<String>(mapChoose1);
-                Object[] mapChoose = new Object[0];
+                Object[] getJsonMap = new Object[0];
+                JComboBox<String> selectionMap = new JComboBox<String>();
+
                 try {
                     Object obj = (new JSONParser()).parse(new FileReader("ressources/maps.json"));
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    mapChoose = jsonObject.keySet().toArray();
-                    System.out.println("OUI :"+ mapChoose);
+                    getJsonMap = jsonObject.keySet().toArray();
+                    System.out.println("OUI :"+ getJsonMap);
                 }
                 catch (Exception e){
                     System.out.println("Erreur");
                 }
-                for (Object obj : mapChoose)
+                for (Object obj : getJsonMap)
                 {
-                    System.out.println(obj.toString());
+                    //System.out.println(obj.toString());
+                    selectionMap.addItem(obj.toString());
                 }
 
 
 
-                JLabel selection = new JLabel("Choix de la map :");
+                JLabel selection = new JLabel("Choix de la difficulté :");
                 selection.setBounds(150,100,400,100);
                 selection.setFont(new Font("Tahoma", Font.BOLD, 20));
                 selection.setForeground(new Color(255,255,255));
