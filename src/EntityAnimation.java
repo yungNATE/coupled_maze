@@ -146,7 +146,13 @@ public class EntityAnimation extends Thread {
         e.nextTile.afficher(fenetre);
         if (e instanceof Player) {
             playSound("gameOver");
-            JOptionPane.showMessageDialog(fenetre, "GAME OVER!","Oops...", JOptionPane.ERROR_MESSAGE);
+
+            int input = JOptionPane.showConfirmDialog(null, "GAME OVER!", "Too bad...", JOptionPane.DEFAULT_OPTION);
+            if(input == JOptionPane.OK_OPTION)
+            {
+                e.fenetre.setVisible(false);
+            }
+
         }
 
     }

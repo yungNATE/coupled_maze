@@ -143,7 +143,12 @@ public class GameEngine implements KeyListener {
 
         if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
             playSound("win");
-            JOptionPane.showMessageDialog(player.fenetre, "YOU WIN!","Well done...", JOptionPane.INFORMATION_MESSAGE);
+            int input = JOptionPane.showOptionDialog(null, "YOU WON!", "What a champion...", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if(input == JOptionPane.OK_OPTION)
+            {
+                player.fenetre.setVisible(false);
+
+            }
         }
     }
 
@@ -198,4 +203,5 @@ public class GameEngine implements KeyListener {
             exception.printStackTrace();
         }
     }
+
 }
