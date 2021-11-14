@@ -6,6 +6,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -117,10 +119,29 @@ public class GameEngine implements KeyListener {
                 Border margin = new EmptyBorder(50, 20, 50, 20);
                 score.setBorder(new CompoundBorder(border, margin));
                 score.setHorizontalAlignment(JLabel.CENTER);
+                fscore.setPreferredSize(new Dimension(300,150));
 
-
+                //Create btn for refreshing page
+                JButton btn_refresh = new JButton("RESTART");
+                btn_refresh.setBackground(new Color(243,101,71));
+                btn_refresh.setForeground(new Color(255,255,255));
+                btn_refresh.setBorderPainted(false);
+                btn_refresh.setFocusPainted(false);
+                btn_refresh.setFocusable(true);
+                btn_refresh.requestFocus();
+                btn_refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+                btn_refresh.setFont(new Font("Tahoma", Font.BOLD, 20));
+                btn_refresh.setPreferredSize(new Dimension(250,30));
+                btn_refresh.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        //dispose();
+                        new GameEngine().setUpGame(map.name);
+                    }
+                });
                 fscore.setLayout(new BorderLayout());
-                fscore.getContentPane().add(score, BorderLayout.CENTER);
+                fscore.getContentPane().add(score, BorderLayout.NORTH);
+                fscore.getContentPane().add(btn_refresh,BorderLayout.SOUTH);
                 fscore.setResizable(false);
                 fscore.getContentPane().setBackground(Color.white);
                 fscore.pack();
