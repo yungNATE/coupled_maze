@@ -1,4 +1,8 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.AbstractMap;
@@ -12,6 +16,9 @@ public class GameEngine implements KeyListener {
     private static Player player1;
     private static Player player2;
     private ArrayList<Box> boxes;
+    private int nombrePas = 0;
+    private JFrame fscore = null;
+    private JLabel score = null ;
 
     public void setUpGame(String mapName) {
         map = new GameMap(mapName);
@@ -37,6 +44,7 @@ public class GameEngine implements KeyListener {
             Position posDifference = player.getFuturePosition(direction);
             moveEntity(player, mapCurr, direction, posDifference);
 
+
         }
     }
 
@@ -57,8 +65,12 @@ public class GameEngine implements KeyListener {
 
             switch (arrivee.type) {
                 case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
+
+                    updateScore(e);
+
                     if (depart.type != Tile.TypeCase.END) e.move(direction);
                     checkForWin((Player) e);
+
 
                     return true;
                 case HOLE:  // tomber() => terminer perdant
@@ -67,6 +79,8 @@ public class GameEngine implements KeyListener {
                     return true;
                 case START:
                 case FLOOR:
+                    updateScore(e);
+                    System.out.println(this.nombrePas);
                     Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
                     if (box != null)  // check si caisse
                     {
@@ -86,6 +100,33 @@ public class GameEngine implements KeyListener {
             }
         }
         return false;
+    }
+
+    private void updateScore(Entity e) {
+        if(e instanceof Player) {
+            this.nombrePas++;
+            if (fscore == null) {
+                fscore = new JFrame("score");
+                score = new JLabel(nombrePas + "");
+                score.setForeground(Color.BLACK);
+                score.setFont(new Font("Verdana", Font.PLAIN, 18));
+                Border border = score.getBorder();
+                Border margin = new EmptyBorder(50, 20, 50, 20);
+                score.setBorder(new CompoundBorder(border, margin));
+                score.setHorizontalAlignment(JLabel.CENTER);
+
+
+                fscore.setLayout(new BorderLayout());
+                fscore.getContentPane().add(score, BorderLayout.CENTER);
+                fscore.setResizable(false);
+                fscore.getContentPane().setBackground(Color.white);
+                fscore.pack();
+                fscore.setFocusableWindowState(false);
+                fscore.setVisible(true);
+            } else {
+                score.setText(nombrePas + "");
+            }
+        }
     }
 
     // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
