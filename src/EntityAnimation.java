@@ -1,13 +1,14 @@
 import javax.sound.sampled.*;
 import javax.swing.*;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+
 
 public class EntityAnimation extends Thread {
 
@@ -28,7 +29,6 @@ public class EntityAnimation extends Thread {
     public void run() {
         if (!e.isMoving) {
             e.isMoving = true;
-
 
             switch (ani) {
                 case MOVE:
@@ -51,19 +51,14 @@ public class EntityAnimation extends Thread {
     private void moveOneTile() {
 
         for (int i = 1; i <= STEP_PIXELS / 2; i++) {
-            e.currentTile.afficher(fenetre);
-
+            e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
             moveTwoPixels(e.currentDirection);
-
             if (i%5 == 0) e.nextTile.afficher(fenetre);
         }
 
     }
 
     private void moveTwoPixels(Direction d) {
-
-        //e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
-
         switch (d) {
             case DOWN:
                 e.icon.display(fenetre, e.pos.posX, e.pos.posY += 2);
@@ -88,6 +83,7 @@ public class EntityAnimation extends Thread {
     }
 
     private void hitWall() {
+        playSound("hitWall");
         switch (e.currentDirection) {
             case DOWN:
                 hitWallAnimation(Direction.DOWN, Direction.UP);
@@ -131,6 +127,9 @@ public class EntityAnimation extends Thread {
 
     public void fall(){
         moveOneTile();
+
+        playSound("fall");
+
         for (int i = 0; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
             Image newimg = e.icon.icon.getImage().getScaledInstance(STEP_PIXELS - i, STEP_PIXELS - i, java.awt.Image.SCALE_SMOOTH);
             GameImage small = new GameImage(new ImageIcon(newimg));
@@ -146,21 +145,22 @@ public class EntityAnimation extends Thread {
         }
         e.nextTile.afficher(fenetre);
         if (e instanceof Player) {
+            playSound("gameOver");
             JOptionPane.showMessageDialog(fenetre, "GAME OVER!","Oops...", JOptionPane.ERROR_MESSAGE);
         }
+
+    }
+
+    private void playSound(String s)
+    {
         try{
-            //play fall sound
-            URL url = this.getClass().getClassLoader().getResource("sounds/fall.mp3");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-        } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
-            unsupportedAudioFileException.printStackTrace();
-        } catch (LineUnavailableException lineUnavailableException) {
-            lineUnavailableException.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Clip monClip = AudioSystem.getClip();
+            AudioInputStream ligne = AudioSystem.getAudioInputStream(new File("ressources/sounds/" + s + ".wav"));
+            monClip.open(ligne);
+            monClip.start();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }
