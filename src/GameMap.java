@@ -7,6 +7,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,13 +28,40 @@ public class GameMap extends Fenetre {
     public GameMap(String map) {
         super(0, 0, Color.BLACK);
 
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
 
+        setPreferredSize(new Dimension(1200,900));
         setTitle("Labyrinth");
         setLocationRelativeTo(null);
 
         setUpLabyrinths(map);
         drawMaps();
+
+        //Create btn for refreshing page
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(Color.black);
+        menuBar.setBorderPainted(false);
+
+        JButton btn_refresh = new JButton("RESTART");
+        btn_refresh.setBackground(new Color(243,101,71));
+        btn_refresh.setForeground(new Color(255,255,255));
+        btn_refresh.setBorderPainted(false);
+        btn_refresh.setFocusPainted(false);
+        btn_refresh.setFocusable(true);
+        btn_refresh.requestFocus();
+        btn_refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btn_refresh.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btn_refresh.setPreferredSize(new Dimension(250,30));
+        btn_refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+                new GameEngine().setUpGame(map);
+            }
+        });
+
+        menuBar.add(btn_refresh);
+        setJMenuBar(menuBar);
 
         setVisible(true);
     }
