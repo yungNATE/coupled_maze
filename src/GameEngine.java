@@ -26,24 +26,31 @@ public class GameEngine implements KeyListener {
     public void movePlayers(Direction direction, Position posDifference) throws CloneNotSupportedException {
         Position posDiffCopie = (Position) posDifference.clone();
         for (Player player : List.of(player1, player2)) {
+
             Position position = player.pos;
             player.currentDirection = direction; // very important
             posDifference.add(position);
 
-            if (player == player1) moveEntity(player, map.left, direction, posDifference);
-            else moveEntity(player, map.right, direction, posDifference);
+            HashMap<Position, Tile> mapCurr = map.right;
+            if (player == player1) mapCurr = map.left;
+
+            moveEntity(player, mapCurr, direction, posDifference);
             posDifference = posDiffCopie;
         }
     }
 
     void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
-        System.out.println(e);
-        System.out.println(posDifference);
-        System.out.println(map);
+        //System.out.println(e);
+        //System.out.println(posDifference);
+        //System.out.println(map);
         Tile.TypeCase arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElseThrow().getValue().type;
+
+
 
         switch (arrivee) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
+                e.move(direction);
+                checkForWin((Player)e);
                 break;
             case WALL:
                 e.hitWall(direction); // hitwall(direction)
@@ -56,6 +63,29 @@ public class GameEngine implements KeyListener {
                 break;
         }
 
+    }
+
+    // prend en paramètre un joueur : vérifier si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
+    private boolean checkForWin(Player player) {
+        HashMap<Position, Tile> mapCurr = map.left;
+        Player otherPlayer = player1;
+
+        System.out.println("ok");
+
+        if (player == player1){
+            mapCurr = map.right;
+            otherPlayer = player2;
+        }
+
+        Position end = mapCurr.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.END).findFirst().orElseThrow().getKey();
+        System.out.println(end);
+        System.out.println(otherPlayer.pos);
+
+        if(otherPlayer.pos.equals(end)){
+
+            return true;
+        }
+        return false;
     }
 
     @Override

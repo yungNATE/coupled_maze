@@ -3,7 +3,7 @@
     "left": [
       [
         "START",
-        "FLOOR",
+        "END",
         "WALL",
         "HOLE"
       ],

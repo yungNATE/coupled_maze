@@ -11,6 +11,7 @@ enum Direction {UP, DOWN, RIGHT, LEFT}
 abstract public class Entity {
 
     static int STEP_PIXELS = 50;
+    Boolean isFinish;
     Fenetre fenetre;
     GameImage icon;
     Position pos;
@@ -45,7 +46,4 @@ abstract public class Entity {
         this.currentDirection = direction;
         new EntityAnimation(this, EntityAnimation.Animation.FALL).start();
     }
-
-
-
 }
