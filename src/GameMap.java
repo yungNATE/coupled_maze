@@ -2,26 +2,19 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class GameMap extends Fenetre {
 
     //PROP
-    public   HashMap<Position, Tile> left;
-    public   HashMap<Position, Tile> right;
-    int      tileSize = 50;
+    public HashMap<Position, Tile> left;
+    public HashMap<Position, Tile> right;
+    int tileSize = 50;
     List<Position> caisses;
     String name;
 
@@ -32,7 +25,7 @@ public class GameMap extends Fenetre {
 
         this.setLayout(new BorderLayout());
 
-        setPreferredSize(new Dimension(1200,900));
+        setPreferredSize(new Dimension(1200, 900));
         setTitle("Labyrinth");
         setLocationRelativeTo(null);
 
@@ -58,7 +51,6 @@ public class GameMap extends Fenetre {
 
             JSONArray premierNiveau = (JSONArray) map.get("left"); // pas besoin de prévoir le programme pour gérer n labyrinthes
             JSONArray secondNiveau = (JSONArray) map.get("right"); // donc on récupère à la main le 1er ainsi que le second
-            //System.out.println(map);
 
             Map<JSONArray, Position> maps = new HashMap<>();
             maps.put(premierNiveau, new Position(20, 10)); // Offset for left map
@@ -77,11 +69,11 @@ public class GameMap extends Fenetre {
                     for (Object tile : (ArrayList) line) {
                         posXTile += tileSize;
                         Position position = new Position(posXTile, posYTile);
-                        if (tile.toString().equals("BOX")){
+                        if (tile.toString().equals("BOX")) {
                             caisses.add(position);
                             currentLabyrinth.put(position, new Tile(Tile.TypeCase.FLOOR, position));
-                        }
-                        else currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
+                        } else
+                            currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
                     }
                 }
                 if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();

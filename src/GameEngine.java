@@ -24,7 +24,7 @@ public class GameEngine implements KeyListener {
     private ArrayList<Box> boxes;
     private int nombrePas = 0;
     private JFrame fscore = null;
-    private JLabel score = null ;
+    private JLabel score = null;
 
     public void setUpGame(String mapName) {
         map = new GameMap(mapName);
@@ -33,7 +33,6 @@ public class GameEngine implements KeyListener {
         player1 = new Player(start.posX, start.posY, "ressources/pof.png", map);
 
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
-
         player2 = new Player(start.posX, start.posY, "ressources/paf.png", map);
         boxes = new ArrayList<>();
         for (Position pos : map.caisses) {
@@ -56,7 +55,7 @@ public class GameEngine implements KeyListener {
     Boolean moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
         if (!e.isMoving) {
             Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
-            Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
+            Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
             e.currentTile = depart;
 
 
@@ -82,9 +81,8 @@ public class GameEngine implements KeyListener {
                 case START:
                 case FLOOR:
                     updateScore(e);
-                    System.out.println(this.nombrePas);
                     Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
-                    if (box != null)  // check si caisse
+                    if (box != null)
                     {
                         Position newBoxPosition = box.getFuturePosition(direction);
                         if (moveEntity(box, map, direction, newBoxPosition)) e.move(direction);
@@ -105,7 +103,7 @@ public class GameEngine implements KeyListener {
     }
 
     private void updateScore(Entity e) {
-        if(e instanceof Player) {
+        if (e instanceof Player) {
             this.nombrePas++;
             if (fscore == null) {
                 fscore = new JFrame("score");
@@ -160,10 +158,8 @@ public class GameEngine implements KeyListener {
         if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 joueurs sur la case END -> return true
             playSound("win");
             int input = JOptionPane.showOptionDialog(null, "YOU WON!", "What a champion...", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-            if(input == JOptionPane.OK_OPTION)
-            {
-                player.fenetre.setVisible(false);
-
+            if (input == JOptionPane.OK_OPTION) {
+                System.exit(0);
             }
         }
     }
@@ -175,8 +171,7 @@ public class GameEngine implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Direction direction;
-        Position pos;
+        Direction direction = null;
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 direction = Direction.UP;
@@ -189,9 +184,6 @@ public class GameEngine implements KeyListener {
                 break;
             case KeyEvent.VK_DOWN:
                 direction = Direction.DOWN;
-                break;
-            default:
-                direction = null;
                 break;
         }
         if (direction != null) {

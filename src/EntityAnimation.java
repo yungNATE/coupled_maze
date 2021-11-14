@@ -1,14 +1,9 @@
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
-import java.io.*;
-import java.net.URL;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-
+import java.io.File;
 
 public class EntityAnimation extends Thread {
 
@@ -53,7 +48,7 @@ public class EntityAnimation extends Thread {
         for (int i = 1; i <= STEP_PIXELS / 2; i++) {
             e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
             moveTwoPixels(e.currentDirection);
-            if (i%5 == 0) e.nextTile.afficher(fenetre);
+            if (i % 5 == 0) e.nextTile.afficher(fenetre); // pour éviter trop de refresh (on refresh la tile sur laquelle on arrive
         }
 
     }
@@ -76,9 +71,9 @@ public class EntityAnimation extends Thread {
                 break;
         }
         try {
-            sleep(20); // délai entre les mouvements des flocons (img/s)
+            sleep(20); // délai entre les mouvements
         } catch (InterruptedException exception) {
-             e.isMoving = false; // Thread interrompu => arrêt
+            e.isMoving = false; // Thread interrompu => arrêt
         }
     }
 
@@ -125,8 +120,8 @@ public class EntityAnimation extends Thread {
         e.nextTile.afficher(fenetre);
     }
 
-    public void fall(){
-        moveOneTile();
+    public void fall() {
+        moveOneTile(); // on avance sur le trou
 
         playSound("fall");
 
@@ -144,22 +139,21 @@ public class EntityAnimation extends Thread {
 
         }
         e.nextTile.afficher(fenetre);
+
         if (e instanceof Player) {
             playSound("gameOver");
 
             int input = JOptionPane.showConfirmDialog(null, "GAME OVER!", "Too bad...", JOptionPane.DEFAULT_OPTION);
-            if(input == JOptionPane.OK_OPTION)
-            {
-                e.fenetre.setVisible(false);
+            if (input == JOptionPane.OK_OPTION) {
+                System.exit(0);
             }
 
         }
 
     }
 
-    private void playSound(String s)
-    {
-        try{
+    private void playSound(String s) {
+        try {
             Clip monClip = AudioSystem.getClip();
             AudioInputStream ligne = AudioSystem.getAudioInputStream(new File("ressources/sounds/" + s + ".wav"));
             monClip.open(ligne);

@@ -47,10 +47,6 @@ public class Tile {
         return "error"; //error
     }
 
-    public void afficher(Fenetre f, Position pos){
-        icon.display(f, pos.posX, pos.posY);
-    }
-
     public void afficher(Fenetre f){
         icon.display(f, pos.posX, pos.posY);
     }
