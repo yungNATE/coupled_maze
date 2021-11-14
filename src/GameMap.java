@@ -19,7 +19,7 @@ public class GameMap extends Fenetre {
     //PROP
    public   HashMap<Position, Tile> left;
    public   HashMap<Position, Tile> right;
-   int tileSize = 50;
+   int      tileSize = 50;
     List<Position> caisses;
 
     //CONSTR
@@ -41,6 +41,7 @@ public class GameMap extends Fenetre {
     // affiche l'écran de fin : victoire = true / défaite = false
     public void ecranDeFin(Boolean isWin) {
         setVisible(false);
+
         JFrame fin = new JFrame(isWin ? "Fin heureuse" : "Crack...");
         JLabel etat = new JLabel(isWin ? "Bravo ! Tu as vaincu le labyrinthe." : "Quel dommage... Une chute des plus terrible..");
         if(isWin) etat.setForeground(Color.WHITE);
@@ -113,6 +114,8 @@ public class GameMap extends Fenetre {
 
     // affiche les labyrinthes
     public void drawMaps() {
+
+
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
                 entry.getValue().afficher(this);
