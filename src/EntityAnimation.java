@@ -41,9 +41,7 @@ public class EntityAnimation extends Thread {
                     fall();
                     break;
             }
-
-
-            fenetre.repaint(); // redessiner l'image de fond pour effacer les flocons
+            e.display();
             e.isMoving = false; // L'animation est arrêtée
         }
 
@@ -53,14 +51,18 @@ public class EntityAnimation extends Thread {
     private void moveOneTile() {
 
         for (int i = 1; i <= STEP_PIXELS / 2; i++) {
+            e.currentTile.afficher(fenetre);
+
             moveTwoPixels(e.currentDirection);
+
+            if (i%5 == 0) e.nextTile.afficher(fenetre);
         }
-        e.icon.display(fenetre, e.pos.posX, e.pos.posY); // display over top of map
+
     }
 
     private void moveTwoPixels(Direction d) {
 
-        e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
+        //e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
 
         switch (d) {
             case DOWN:
@@ -78,7 +80,6 @@ public class EntityAnimation extends Thread {
             default:
                 break;
         }
-
         try {
             sleep(20); // délai entre les mouvements des flocons (img/s)
         } catch (InterruptedException exception) {
@@ -146,8 +147,6 @@ public class EntityAnimation extends Thread {
         e.nextTile.afficher(fenetre);
         if (e instanceof Player) {
             JOptionPane.showMessageDialog(fenetre, "GAME OVER!","Oops...", JOptionPane.ERROR_MESSAGE);
-
-            //afficher(fenetre);
         }
         try{
             //play fall sound
