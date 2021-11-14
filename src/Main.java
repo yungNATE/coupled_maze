@@ -7,9 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -54,6 +52,17 @@ public class Main {
         Border bmargin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(bline, bmargin);
 
+        try {
+            Object obj = (new JSONParser()).parse(new FileReader("ressources/maps.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+
+            Set mapChoose = jsonObject.keySet();
+            System.out.println("OUI :"+ mapChoose);
+        }
+        catch (Exception e){
+            System.out.println("Erreur");
+        }
+
         JButton btn_new = new JButton("NEW GAME");
         btn_new.setBackground(new Color(243,101,71));
         btn_new.setForeground(new Color(255,255,255));
@@ -86,7 +95,7 @@ public class Main {
                 menu_new.setBorderPainted(false);
                 menu_new.setOpaque(true);
 
-                JLabel title = new JLabel("Commencer une nouvelle partie :");
+                JLabel title = new JLabel("NOUVELLE PARTIE");
                 title.setFont(new Font("Tahoma", Font.BOLD, 20));
                 title.setForeground(new Color(255,255,255));
 
@@ -113,7 +122,43 @@ public class Main {
                 menu_new.add(new JSeparator());
                 menu_new.add(btn_return);
 
+                int FIRST_ELEMENT = 0;
+                String[] mapChoose = {"map_1","map_2"};
+                JComboBox<String> selectionMap = new JComboBox<String>(mapChoose);
+
+                JLabel selection = new JLabel("Choix de la map :");
+                selection.setBounds(150,100,400,100);
+                selection.setFont(new Font("Tahoma", Font.BOLD, 20));
+                selection.setForeground(new Color(255,255,255));
+
+                selectionMap.setBounds(150, 200, 250, 30);
+                selectionMap.setFont(new Font("Tahoma", Font.BOLD, 20));
+                JButton choose = new JButton("Choisir");
+                choose.setBounds(150,250,250,30);
+                choose.setBackground(new Color(193, 76, 56));
+                choose.setForeground(new Color(255,255,255));
+                choose.setBorderPainted(false);
+                choose.setBorder(compound);
+                choose.setFocusPainted(false);
+                choose.setFocusable(false);
+                choose.setAlignmentX(Component.CENTER_ALIGNMENT);
+                choose.setFont(new Font("Tahoma", Font.BOLD, 20));
+                choose.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        String map = selectionMap.getSelectedItem().toString();
+                        new GameEngine().setUp(map);
+                        window.dispose();
+                        new_game.dispose();
+                    }
+                });
+
                 new_game.setJMenuBar(menu_new);
+                new_game.add(selection);
+                new_game.add(choose);
+                new_game.add(selectionMap);
+
+                new_game.setLayout(null);
                 new_game.revalidate();
 
             }
@@ -181,7 +226,7 @@ public class Main {
                 btn_return.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        load_game.setVisible(false);
+                        load_game.dispose();
                         window.setVisible(true);
                     }
                 });
@@ -262,7 +307,43 @@ public class Main {
         window.setJMenuBar(menu_component);
 
         window.setVisible(true);
-        window.pack(); */
+        window.pack();
+
+        // setup test
+        System.out.println("cc kiki");
+
+        // lecture fichier test
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader("ressources/maps.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONObject map = (JSONObject) jsonObject.get("map");
+            //System.out.println(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // lecture labyrinth test
+        JSONParser parser2 = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader("ressources/maps.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONObject map = (JSONObject) jsonObject.get("map_1");
+            JSONArray premierNiveau = (JSONArray) map.get("left");
+            int i = 0;
+            for (Object line: premierNiveau){
+
+                System.out.print("Ligne: " + ++i);
+                for (Object tile : (ArrayList)line){
+                    System.out.print(tile);
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+ */
     }
 }
 
