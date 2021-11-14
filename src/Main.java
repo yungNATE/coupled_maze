@@ -46,7 +46,7 @@ public class Main {
             JSONObject jsonObject = (JSONObject) obj;
 
             Set mapChoose = jsonObject.keySet();
-            //System.out.println("OUI :"+mapChoose);
+            System.out.println("OUI :"+ mapChoose);
         }
         catch (Exception e){
             System.out.println("Erreur");
@@ -112,8 +112,8 @@ public class Main {
                 menu_new.add(btn_return);
 
                 int FIRST_ELEMENT = 0;
-                //String[] mapChoose = {"map1","map2"};
-                JComboBox<String> selectionMap = new JComboBox<String>(new HashSet<String>(mapChoose));
+                String[] mapChoose = {"map_1","map_2"};
+                JComboBox<String> selectionMap = new JComboBox<String>(mapChoose);
 
                 JLabel selection = new JLabel("Choix de la map :");
                 selection.setBounds(150,100,400,100);
@@ -132,6 +132,15 @@ public class Main {
                 choose.setFocusable(false);
                 choose.setAlignmentX(Component.CENTER_ALIGNMENT);
                 choose.setFont(new Font("Tahoma", Font.BOLD, 20));
+                choose.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        String map = selectionMap.getSelectedItem().toString();
+                        new GameEngine().setUp(map);
+                        window.dispose();
+                        new_game.dispose();
+                    }
+                });
 
                 new_game.setJMenuBar(menu_new);
                 new_game.add(selection);
@@ -206,7 +215,7 @@ public class Main {
                 btn_return.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        load_game.setVisible(false);
+                        load_game.dispose();
                         window.setVisible(true);
                     }
                 });
