@@ -24,8 +24,18 @@ import javax.swing.border.LineBorder;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
-        //new GameMap("map");
-        //Window creation
+        /*GameMap map = new GameMap("map");
+        Player p = new Player(20,20,"ressources/cat.jpg", map);
+
+        p.move(Direction.DOWN);
+        p.move(Direction.DOWN);
+
+        p.move(Direction.RIGHT); */
+
+        new GameEngine().setUpGame("map");
+
+
+        /* //Window creation
         JFrame window = new JFrame("Labyrinth");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1200,600);
@@ -252,7 +262,7 @@ public class Main {
         window.setJMenuBar(menu_component);
 
         window.setVisible(true);
-        window.pack();
+        window.pack(); */
     }
 }
 

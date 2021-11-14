@@ -1,4 +1,4 @@
-public class Position {
+public class Position implements Cloneable {
     public int posX, posY;
 
     public Position(int x,int y){
@@ -13,5 +13,16 @@ public class Position {
     public Object clone() throws CloneNotSupportedException
     {
         return super.clone();
+    }
+
+    public void add(Position posDifference) {
+        posX += posDifference.posX;
+        posY += posDifference.posY;
+
+    }
+
+    @Override
+    public boolean equals(Object posDifference) {
+        return (posX == ((Position) posDifference).posX && posY == ((Position) posDifference).posY);
     }
 }

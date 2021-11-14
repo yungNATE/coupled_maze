@@ -2,6 +2,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,13 +12,13 @@ import java.util.Map;
 public class GameMap extends Fenetre {
 
     //PROP
-    HashMap<Position, Tile> left;
-    HashMap<Position, Tile> right;
-    Fenetre f;
+   public   HashMap<Position, Tile> left;
+   public   HashMap<Position, Tile> right;
+   int tileSize = 50;
 
     //CONSTR
     public GameMap(String map) {
-        super(0, 0);
+        super(0, 0, Color.BLACK);
         setUpLabyrinths(map);
         drawMaps();
 
@@ -28,8 +29,7 @@ public class GameMap extends Fenetre {
     // récupère la data des labyrinths dans le fichier JSON
     public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
-        int tileSize = 50,
-        posYTile, posXTile; //px
+        int posYTile, posXTile; //px
 
         HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
 
@@ -40,11 +40,11 @@ public class GameMap extends Fenetre {
 
             JSONArray premierNiveau = (JSONArray) map.get("left"); // pas besoin de prévoir le programme pour gérer n labyrinthes
             JSONArray secondNiveau = (JSONArray) map.get("right"); // donc on récupère à la main le 1er ainsi que le second
-            System.out.println(map);
+            //System.out.println(map);
 
             Map<JSONArray, Position> maps = new HashMap<>();
             maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
-            maps.put(secondNiveau, new Position(300, 20)); // Offset for right map
+            maps.put(secondNiveau, new Position(600, 20)); // Offset for right map
 
             for (Map.Entry<JSONArray, Position> currentMap : maps.entrySet()) {
 
@@ -58,7 +58,8 @@ public class GameMap extends Fenetre {
 
                     for (Object tile : (ArrayList) line) {
                         posXTile += tileSize;
-                        currentLabyrinth.put(new Position(posXTile, posYTile), new Tile(Tile.TypeCase.valueOf(tile.toString())));
+                        Position position = new Position(posXTile, posYTile);
+                        currentLabyrinth.put(position, new Tile(Tile.TypeCase.valueOf(tile.toString()), position));
                     }
                 }
                 if (niveau == premierNiveau) left = (HashMap<Position, Tile>) currentLabyrinth.clone();
@@ -71,10 +72,10 @@ public class GameMap extends Fenetre {
     }
 
     // affiche les labyrinthes
-    private void drawMaps() {
+    public void drawMaps() {
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
-                entry.getValue().afficher(this, entry.getKey());
+                entry.getValue().afficher(this);
             }
         }
     }
