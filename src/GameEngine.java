@@ -50,7 +50,7 @@ public class GameEngine implements KeyListener {
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
                 e.move(direction);
-                if (checkForWin((Player) e)) { System.out.println("ça marche"); }
+                if (checkForWin((Player) e)) { System.out.println("ca marche"); }
                                         else { System.out.println("pas ouf"); }
                 break;
             case WALL:
@@ -79,8 +79,11 @@ public class GameEngine implements KeyListener {
             mapCurr = map.right;
             otherPlayer = player2;
         }
+        System.out.println("1:" + player1.nextTile);
+        System.out.println("2:" + player2.nextTile);
 
         if(otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
+
             return true;
         }
         return false;
