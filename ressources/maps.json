@@ -12,6 +12,12 @@
         "FLOOR",
         "FLOOR",
         "FLOOR"
+      ],
+      [
+        "END",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR"
       ]
     ],
     "right": [
@@ -26,6 +32,12 @@
         "FLOOR",
         "START",
         "END"
+      ],
+      [
+        "END",
+        "FLOOR",
+        "FLOOR",
+        "FLOOR"
       ]
     ]
   },
