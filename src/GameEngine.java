@@ -16,10 +16,10 @@ public class GameEngine implements KeyListener {
         //System.out.print(map.left);
 
         Position start = map.left.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
-        player1 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
+        player1 = new Player(start.posX, start.posY, "ressources/pof.png", map);
 
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
-        player2 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
+        player2 = new Player(start.posX, start.posY, "ressources/paf.png", map);
 
         map.addKeyListener(this);
     }
