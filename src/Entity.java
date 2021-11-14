@@ -12,7 +12,7 @@ enum Direction {UP, DOWN, RIGHT, LEFT}
 abstract public class Entity {
 
     static int STEP_PIXELS = 50;
-    Boolean isFinish;
+    Thread currentThread;
     Fenetre fenetre;
     GameImage icon;
     Position pos;

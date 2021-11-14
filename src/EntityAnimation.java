@@ -137,7 +137,6 @@ public class EntityAnimation extends Thread {
 
         }
         e.nextTile.afficher(fenetre);
-
     }
 }
 
