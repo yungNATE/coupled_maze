@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.AbstractMap;
@@ -39,7 +38,8 @@ public class GameEngine implements KeyListener {
         }
     }
 
-    void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
+    // Returns if movement was succesfully completed
+    Boolean moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
         Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
         e.currentTile = depart;
@@ -52,34 +52,39 @@ public class GameEngine implements KeyListener {
             e.nextTile = arrivee;
         }
 
-            switch (arrivee.type) {
-                case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
-                    if (depart.type != Tile.TypeCase.END) e.move(direction);
-                    if (checkForWin((Player) e))
-                        this.map.ecranDeFin(true);
-                    break;
-                case WALL:
-                    e.hitWall(direction); // hitwall(direction)
-                    break;
-                case HOLE:  // tomber() => terminer perdant
-                    e.fall(direction);
-                    while(e.isMoving){}
-                    if (e instanceof Player) this.map.ecranDeFin(false);
-                    else if (e instanceof Box) boxes.remove(e);
-                    break;
-                case START:
-                case FLOOR:
-                    Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
-                    if (box != null)  // check si caisse
-                    {
-                        Position newBoxPosition = box.getFuturePosition(direction);
-                        moveEntity(box, map, direction, newBoxPosition);
-                    }
+        switch (arrivee.type) {
+            case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
+                if (depart.type != Tile.TypeCase.END) e.move(direction);
+                if (checkForWin((Player) e))
+                    this.map.ecranDeFin(true);
+                return true;
+            case HOLE:  // tomber() => terminer perdant
+                e.fall(direction);
+                while (e.isMoving) {
+                }
+                if (e instanceof Player) this.map.ecranDeFin(false);
+                else if (e instanceof Box) boxes.remove(e);
+                return true;
+            case START:
+            case FLOOR:
+                Box box = boxes.stream().filter(b -> b.pos.equals(posDifference)).findFirst().orElse(null);
+                if (box != null)  // check si caisse
+                {
+                    Position newBoxPosition = box.getFuturePosition(direction);
+                    if (moveEntity(box, map, direction, newBoxPosition)) e.move(direction);
+
+                } else {
                     e.move(direction);
-                    break;
-                case OUT_OF_BOUNDS:
-                    break;
+                }
+                return true;
+
+            case WALL:
+                e.hitWall(direction); // hitwall(direction)
+
+            case OUT_OF_BOUNDS:
+
         }
+        return false;
     }
 
     // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
