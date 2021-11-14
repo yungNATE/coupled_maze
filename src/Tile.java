@@ -10,12 +10,18 @@ public class Tile {
         END,
         WALL,
         HOLE,
-        FLOOR
+        FLOOR,
+        OUT_OF_BOUNDS
     }
     Position pos;
     TypeCase type;
     GameImage icon;
     String folder = "ressources/textures/";
+
+    public Tile(TypeCase typeCase){
+        type = typeCase;
+        icon = new GameImage(getPath(type.toString(), folder));
+    }
 
     public Tile(TypeCase typeCase, Position position){
         type = typeCase;
