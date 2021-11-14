@@ -17,14 +17,16 @@ public class GameEngine implements KeyListener {
         map = new GameMap(mapName);
 
         Position start = map.left.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
-        player1 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
+        player1 = new Player(start.posX, start.posY, "ressources/pof.png", map);
 
         start = map.right.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
-        player2 = new Player(start.posX, start.posY, "ressources/cat.jpg", map);
+
+        player2 = new Player(start.posX, start.posY, "ressources/paf.png", map);
         boxes = new ArrayList<>();
         for (Position pos : map.caisses) {
             boxes.add(new Box(pos.posX, pos.posY, "ressources/balle.png", map));
         }
+
         map.addKeyListener(this);
     }
 
