@@ -70,13 +70,11 @@ public class GameEngine implements KeyListener {
                 break;
             case START:
             case FLOOR:
-
-                e.move(direction); // check si caisse
-                break;
-            case OUT_OF_BOUNDS:
-                break;
+                    e.move(direction); // check si caisse
+                    break;
+                case OUT_OF_BOUNDS:
+                    break;
         }
-
     }
 
     // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné

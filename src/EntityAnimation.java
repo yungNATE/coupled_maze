@@ -9,7 +9,6 @@ public class EntityAnimation extends Thread {
     final int STEP_PIXELS = 50;
     volatile Animation ani;
     volatile Entity e;
-    volatile boolean isRunning = false;
     Fenetre fenetre;
 
     public EntityAnimation(Entity entity, Animation a) {
@@ -21,8 +20,9 @@ public class EntityAnimation extends Thread {
     @Override
     public void run() {
         if (!e.isMoving) {
-
             e.isMoving = true;
+
+
             switch (ani) {
                 case MOVE:
                     moveOneTile();
@@ -35,10 +35,11 @@ public class EntityAnimation extends Thread {
                     break;
 
             }
+            // L'animation est arrêtée
+            e.isMoving = false;
+            fenetre.repaint(); // redessiner l'image de fond pour effacer les flocons
         }
-        // L'animation est arrêtée
-        e.isMoving = false;
-        fenetre.repaint(); // redessiner l'image de fond pour effacer les flocons
+
     }
 
 
@@ -73,8 +74,8 @@ public class EntityAnimation extends Thread {
 
         try {
             sleep(20); // délai entre les mouvements des flocons (img/s)
-        } catch (InterruptedException e) {
-            isRunning = false; // Thread interrompu => arrêt
+        } catch (InterruptedException exception) {
+             e.isMoving = false; // Thread interrompu => arrêt
         }
     }
 
@@ -128,11 +129,10 @@ public class EntityAnimation extends Thread {
             e.nextTile.afficher(fenetre);
             small.display(fenetre, e.pos.posX + i / 2, e.pos.posY + i / 2);
             try {
-                sleep(50);
-                TimeUnit.MILLISECONDS.sleep(50);
+                sleep(100);
 
             } catch (InterruptedException interruptedException) {
-                isRunning = false;
+                e.isMoving = false;
             }
 
         }
