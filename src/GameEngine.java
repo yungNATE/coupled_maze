@@ -58,6 +58,8 @@ public class GameEngine implements KeyListener {
                 if (depart.type != Tile.TypeCase.END) e.move(direction);
                 if (checkForWin((Player) e)) {
                     System.out.println("ca marche");
+
+                    this.map.ecranDeFin(true);
                 } else {
                     System.out.println("pas ouf");
                 }

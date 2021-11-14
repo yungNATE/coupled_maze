@@ -26,6 +26,10 @@ public class GameMap extends Fenetre {
     }
 
     //METH
+    // affiche l'écran de fin : victoire = true / défaite = false
+    public void ecranDeFin(Boolean isWin){
+        this.setVisible(false);
+    }
     // récupère la data des labyrinths dans le fichier JSON
     public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
