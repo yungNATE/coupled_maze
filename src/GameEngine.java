@@ -40,9 +40,6 @@ public class GameEngine implements KeyListener {
     }
 
     void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
-        System.out.println(e);
-        System.out.println(posDifference);
-        System.out.println(map);
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
         Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElseThrow().getValue();
         e.currentTile = depart;
@@ -51,7 +48,8 @@ public class GameEngine implements KeyListener {
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
                 e.move(direction);
-                checkForWin((Player)e);
+                if (checkForWin((Player) e)) { System.out.println("ça marche"); }
+                                        else { System.out.println("pas ouf"); }
                 break;
             case WALL:
                 e.hitWall(direction); // hitwall(direction)
@@ -59,6 +57,7 @@ public class GameEngine implements KeyListener {
             case HOLE:  // tomber() => terminer perdant
                 e.fall(direction);
                 break;
+            case START:
             case FLOOR:
 
                 e.move(direction); // check si caisse
@@ -67,24 +66,17 @@ public class GameEngine implements KeyListener {
 
     }
 
-    // prend en paramètre un joueur : vérifier si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
+    // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
     private boolean checkForWin(Player player) {
         HashMap<Position, Tile> mapCurr = map.left;
         Player otherPlayer = player1;
 
-        System.out.println("ok");
-
-        if (player == player1){
+        if (player == player1) { // choix de l'autre joueur
             mapCurr = map.right;
             otherPlayer = player2;
         }
 
-        Position end = mapCurr.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.END).findFirst().orElseThrow().getKey();
-        System.out.println(end);
-        System.out.println(otherPlayer.pos);
-
-        if(otherPlayer.pos.equals(end)){
-
+        if(otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
             return true;
         }
         return false;
