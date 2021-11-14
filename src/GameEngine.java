@@ -1,6 +1,10 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,7 +101,7 @@ public class GameEngine implements KeyListener {
         }
 
         if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
-
+            playSound("win");
             JOptionPane.showMessageDialog(player.fenetre, "YOU WIN!","Well done...", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -140,5 +144,17 @@ public class GameEngine implements KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
 
+    }
+
+    private void playSound(String s) {
+        try {
+            Clip monClip = AudioSystem.getClip();
+            AudioInputStream ligne = AudioSystem.getAudioInputStream(new File("ressources/sounds/" + s + ".wav"));
+            monClip.open(ligne);
+            monClip.start();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }
