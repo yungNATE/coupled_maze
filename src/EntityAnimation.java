@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class EntityAnimation extends Thread {
@@ -12,30 +11,28 @@ public class EntityAnimation extends Thread {
     volatile Entity e;
     volatile boolean isRunning = false;
     Fenetre fenetre;
-    Tile originalTile;
 
     public EntityAnimation(Entity entity, Animation a) {
         e = entity;
         ani = a;
         fenetre = entity.fenetre;
-        originalTile = entity.currentTile;
     }
 
     @Override
     public void run() {
         if (!e.isMoving) {
 
-                e.isMoving = true;
-                switch (ani) {
-                    case MOVE:
-                        moveOneTile();
-                        break;
-                    case HIT:
-                        hitWall();
-                        break;
-                    case FALL:
-                        fall();
-                        break;
+            e.isMoving = true;
+            switch (ani) {
+                case MOVE:
+                    moveOneTile();
+                    break;
+                case HIT:
+                    hitWall();
+                    break;
+                case FALL:
+                    fall();
+                    break;
 
             }
         }
@@ -47,7 +44,7 @@ public class EntityAnimation extends Thread {
 
     private void moveOneTile() {
 
-        for (int i = 1; i <= STEP_PIXELS/2; i++) {
+        for (int i = 1; i <= STEP_PIXELS / 2; i++) {
             moveTwoPixels(e.currentDirection);
         }
         e.icon.display(fenetre, e.pos.posX, e.pos.posY); // display over top of map
@@ -55,7 +52,7 @@ public class EntityAnimation extends Thread {
 
     private void moveTwoPixels(Direction d) {
 
-        originalTile.afficher(fenetre); // afficher tile en dessous du joueur
+        e.currentTile.afficher(fenetre); // afficher tile en dessous du joueur
 
         switch (d) {
             case DOWN:
@@ -127,8 +124,9 @@ public class EntityAnimation extends Thread {
         moveOneTile();
         for (int i = 0; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
             Image newimg = e.icon.icon.getImage().getScaledInstance(STEP_PIXELS - i, STEP_PIXELS - i, java.awt.Image.SCALE_SMOOTH);
-            e.icon = new GameImage(new ImageIcon(newimg));
-            e.icon.display(fenetre, e.pos.posX + i / 2, e.pos.posY + i / 2);
+            GameImage small = new GameImage(new ImageIcon(newimg));
+            e.nextTile.afficher(fenetre);
+            small.display(fenetre, e.pos.posX + i / 2, e.pos.posY + i / 2);
             try {
                 sleep(50);
                 TimeUnit.MILLISECONDS.sleep(50);
@@ -136,9 +134,10 @@ public class EntityAnimation extends Thread {
             } catch (InterruptedException interruptedException) {
                 isRunning = false;
             }
-            originalTile.afficher(fenetre);
 
         }
+        e.nextTile.afficher(fenetre);
+
     }
 }
 
