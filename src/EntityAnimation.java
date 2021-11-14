@@ -120,6 +120,7 @@ public class EntityAnimation extends Thread {
             moveTwoPixels(opposite);
         }
         e.nextTile.afficher(fenetre);
+        e.display();
 
     }
 

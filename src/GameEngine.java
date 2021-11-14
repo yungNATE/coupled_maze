@@ -45,8 +45,8 @@ public class GameEngine implements KeyListener {
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
         Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
         e.currentTile = depart;
-        if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) e.nextTile = arrivee;
-        else if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) e.nextTile = depart;
+        if (depart.type == Tile.TypeCase.END && arrivee.type == Tile.TypeCase.WALL) e.nextTile = depart;
+        else if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) e.nextTile = arrivee;
 
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
