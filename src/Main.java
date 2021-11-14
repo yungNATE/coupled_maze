@@ -119,14 +119,12 @@ public class Main {
                     JSONObject jsonObject = (JSONObject) obj;
 
                     getJsonMap = jsonObject.keySet().toArray();
-                    System.out.println("OUI :"+ getJsonMap);
                 }
                 catch (Exception e){
                     System.out.println("Erreur");
                 }
                 for (Object obj : getJsonMap)
                 {
-                    //System.out.println(obj.toString());
                     selectionMap.addItem(obj.toString());
                 }
 
