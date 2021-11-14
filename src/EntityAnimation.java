@@ -33,11 +33,11 @@ public class EntityAnimation extends Thread {
                 case FALL:
                     fall();
                     break;
-
             }
-            // L'animation est arrêtée
-            e.isMoving = false;
+
+
             fenetre.repaint(); // redessiner l'image de fond pour effacer les flocons
+            e.isMoving = false; // L'animation est arrêtée
         }
 
     }
@@ -129,7 +129,7 @@ public class EntityAnimation extends Thread {
             e.nextTile.afficher(fenetre);
             small.display(fenetre, e.pos.posX + i / 2, e.pos.posY + i / 2);
             try {
-                sleep(100);
+                sleep(50);
 
             } catch (InterruptedException interruptedException) {
                 e.isMoving = false;
@@ -137,6 +137,9 @@ public class EntityAnimation extends Thread {
 
         }
         e.nextTile.afficher(fenetre);
+        if (e instanceof Player) {
+            JOptionPane.showMessageDialog(fenetre, "GAME OVER!","Oops...", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
 

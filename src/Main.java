@@ -115,6 +115,7 @@ public class Main {
 
                 new_game.setJMenuBar(menu_new);
                 new_game.revalidate();
+                new_game.setLocationRelativeTo(null);
 
             }
             
