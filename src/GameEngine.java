@@ -49,8 +49,6 @@ public class GameEngine implements KeyListener {
             if (player == player1) mapCurr = map.left;
             Position posDifference = player.getFuturePosition(direction);
             moveEntity(player, mapCurr, direction, posDifference);
-
-
         }
     }
 
@@ -70,16 +68,14 @@ public class GameEngine implements KeyListener {
             }
 
             switch (arrivee.type) {
-                case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
-
+                case END:
                     updateScore(e);
 
                     if (depart.type != Tile.TypeCase.END) e.move(direction);
                     checkForWin((Player) e);
 
-
                     return true;
-                case HOLE:  // tomber() => terminer perdant
+                case HOLE:
                     e.fall(direction);
                     if (e instanceof Box) boxes.remove(e);
                     return true;
@@ -99,7 +95,7 @@ public class GameEngine implements KeyListener {
                     return true;
 
                 case WALL:
-                    e.hitWall(direction); // hitwall(direction)
+                    e.hitWall(direction);
 
                 case OUT_OF_BOUNDS:
 
@@ -136,7 +132,6 @@ public class GameEngine implements KeyListener {
                 btn_refresh.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        //dispose();
                         new GameEngine().setUpGame(map.name);
                     }
                 });
@@ -154,7 +149,7 @@ public class GameEngine implements KeyListener {
         }
     }
 
-    // prend en paramètre un joueur : vérifie si l'autre joueur est positionné sur la case de fin, alors le jeu est gagné
+    // prend en paramètre un joueur : vérifie si l'autre joueur est aussi positionné sur la case de fin, alors le jeu est gagné
     private void checkForWin(Player player) {
         Player otherPlayer = player1;
 
@@ -162,7 +157,7 @@ public class GameEngine implements KeyListener {
             otherPlayer = player2;
         }
 
-        if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 sur la case END -> return true
+        if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 joueurs sur la case END -> return true
             playSound("win");
             int input = JOptionPane.showOptionDialog(null, "YOU WON!", "What a champion...", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if(input == JOptionPane.OK_OPTION)

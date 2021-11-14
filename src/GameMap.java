@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class GameMap extends Fenetre {
 
     //PROP
-   public   HashMap<Position, Tile> left;
-   public   HashMap<Position, Tile> right;
-   int      tileSize = 50;
+    public   HashMap<Position, Tile> left;
+    public   HashMap<Position, Tile> right;
+    int      tileSize = 50;
     List<Position> caisses;
     String name;
 
