@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.AbstractMap;
@@ -24,7 +25,7 @@ public class GameEngine implements KeyListener {
         map.addKeyListener(this);
     }
 
-    public void movePlayers(Direction direction, Position posDifference) throws CloneNotSupportedException {
+    public void movePlayers(Direction direction, Position posDifference) throws CloneNotSupportedException, InterruptedException {
         Position posDiffCopie = (Position) posDifference.clone();
         for (Player player : List.of(player1, player2)) {
 
@@ -40,7 +41,7 @@ public class GameEngine implements KeyListener {
         }
     }
 
-    void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
+    void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) throws InterruptedException {
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
         Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
         e.currentTile = depart;
@@ -56,19 +57,16 @@ public class GameEngine implements KeyListener {
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
                 if (depart.type != Tile.TypeCase.END) e.move(direction);
-                if (checkForWin((Player) e)) {
-                    System.out.println("ca marche");
-
+                if (checkForWin((Player) e))
                     this.map.ecranDeFin(true);
-                } else {
-                    System.out.println("pas ouf");
-                }
+
                 break;
             case WALL:
                 e.hitWall(direction); // hitwall(direction)
                 break;
             case HOLE:  // tomber() => terminer perdant
                 e.fall(direction);
+                this.map.ecranDeFin(false);
                 break;
             case START:
             case FLOOR:
