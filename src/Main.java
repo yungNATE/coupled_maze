@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -20,9 +21,19 @@ import javax.swing.border.LineBorder;
 
 
 public class Main {
+    public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
+        /*GameMap map = new GameMap("map");
+        Player p = new Player(20,20,"ressources/cat.jpg", map);
 
-    public static void main(String[] args) {
-        //Window creation
+        p.move(Direction.DOWN);
+        p.move(Direction.DOWN);
+
+        p.move(Direction.RIGHT); */
+
+        new GameEngine().setUpGame("map");
+
+
+        /* //Window creation
         JFrame window = new JFrame("Labyrinth");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(1200,600);
@@ -332,9 +343,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+ */
     }
-
 }
 
 
