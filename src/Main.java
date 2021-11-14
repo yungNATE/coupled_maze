@@ -166,6 +166,7 @@ public class Main {
 
                 new_game.setLayout(null);
                 new_game.revalidate();
+                new_game.setLocationRelativeTo(null);
 
             }
             
