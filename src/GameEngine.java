@@ -1,7 +1,9 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameEngine implements KeyListener {
 
@@ -41,9 +43,9 @@ public class GameEngine implements KeyListener {
 
     void moveEntity(Entity e, HashMap<Position, Tile> map, Direction direction, Position posDifference) {
         Tile depart = map.entrySet().stream().filter(v -> v.getKey().equals(e.pos)).findFirst().orElseThrow().getValue();
-        Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElseThrow().getValue();
+        Tile arrivee = map.entrySet().stream().filter(v -> v.getKey().equals(posDifference)).findFirst().orElse(new AbstractMap.SimpleEntry<Position, Tile>(null, new Tile(Tile.TypeCase.OUT_OF_BOUNDS))).getValue();
         e.currentTile = depart;
-        e.nextTile = arrivee;
+        if (arrivee.type != Tile.TypeCase.OUT_OF_BOUNDS) e.nextTile = arrivee;
 
         switch (arrivee.type) {
             case END:   // bouger : OK | Choper position case des 2 cases END, choper position 2 players, si == pour les deux => terminer gagnant
@@ -61,6 +63,8 @@ public class GameEngine implements KeyListener {
             case FLOOR:
 
                 e.move(direction); // check si caisse
+                break;
+            case OUT_OF_BOUNDS:
                 break;
         }
 
