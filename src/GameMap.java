@@ -19,6 +19,7 @@ public class GameMap extends Fenetre {
     //CONSTR
     public GameMap(String map) {
         super(0, 0, Color.BLACK);
+        setTitle("Labyrinth");
         setLocationRelativeTo(null);
         setUpLabyrinths(map);
         drawMaps();

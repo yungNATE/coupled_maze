@@ -67,7 +67,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 //create new frame
-                JFrame new_game = new JFrame("Start new game");
+                JFrame new_game = new JFrame("Labyrinth: Start new game");
                 new_game.setVisible(true);
                 new_game.setSize(new Dimension(600,600));
                 new_game.getContentPane().setBackground(new Color(243,101,71));
@@ -197,7 +197,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 //create new frame
-                JFrame load_game = new JFrame("Load game");
+                JFrame load_game = new JFrame("Labyrinth: Load game");
                 load_game.setVisible(true);
                 load_game.setSize(new Dimension(600,600));
                 load_game.getContentPane().setBackground(new Color(243,101,71));
