@@ -38,30 +38,6 @@ public class GameMap extends Fenetre {
     }
 
     //METH
-    // affiche l'écran de fin : victoire = true / défaite = false
-    public void ecranDeFin(Boolean isWin) {
-        setVisible(false);
-
-        JFrame fin = new JFrame(isWin ? "Fin heureuse" : "Crack...");
-        JLabel etat = new JLabel(isWin ? "Bravo ! Tu as vaincu le labyrinthe." : "Quel dommage... Une chute des plus terrible..");
-        if(isWin) etat.setForeground(Color.WHITE);
-        etat.setFont(new Font("Verdana", Font.PLAIN, 18));
-        Border border = etat.getBorder();
-        Border margin = new EmptyBorder(50,20,50,20);
-        etat.setBorder(new CompoundBorder(border, margin));
-        etat.setHorizontalAlignment(JLabel.CENTER);
-
-        Color bg = isWin ? Color.green : Color.red;
-
-
-        fin.setLayout(new BorderLayout());
-        fin.getContentPane().add(etat, BorderLayout.CENTER);
-        fin.setResizable(false);
-        fin.getContentPane().setBackground(bg);
-        fin.pack();
-        fin.setVisible(true);
-
-    }
     // récupère la data des labyrinths dans le fichier JSON
     public void setUpLabyrinths(String mapAJouer) {
         JSONParser parser = new JSONParser();
@@ -114,8 +90,6 @@ public class GameMap extends Fenetre {
 
     // affiche les labyrinthes
     public void drawMaps() {
-
-
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
                 entry.getValue().afficher(this);
