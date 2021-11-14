@@ -23,10 +23,12 @@ public class GameMap extends Fenetre {
    public   HashMap<Position, Tile> right;
    int      tileSize = 50;
     List<Position> caisses;
+    String name;
 
     //CONSTR
     public GameMap(String map) {
         super(0, 0, Color.BLACK);
+        name = map;
 
         this.setLayout(new BorderLayout());
 
@@ -36,32 +38,6 @@ public class GameMap extends Fenetre {
 
         setUpLabyrinths(map);
         drawMaps();
-
-        //Create btn for refreshing page
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(Color.black);
-        menuBar.setBorderPainted(false);
-
-        JButton btn_refresh = new JButton("RESTART");
-        btn_refresh.setBackground(new Color(243,101,71));
-        btn_refresh.setForeground(new Color(255,255,255));
-        btn_refresh.setBorderPainted(false);
-        btn_refresh.setFocusPainted(false);
-        btn_refresh.setFocusable(true);
-        btn_refresh.requestFocus();
-        btn_refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btn_refresh.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btn_refresh.setPreferredSize(new Dimension(250,30));
-        btn_refresh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-                new GameEngine().setUpGame(map);
-            }
-        });
-
-        menuBar.add(btn_refresh);
-        setJMenuBar(menuBar);
 
         setVisible(true);
     }
@@ -85,8 +61,8 @@ public class GameMap extends Fenetre {
             //System.out.println(map);
 
             Map<JSONArray, Position> maps = new HashMap<>();
-            maps.put(premierNiveau, new Position(20, 20)); // Offset for left map
-            maps.put(secondNiveau, new Position(600, 20)); // Offset for right map
+            maps.put(premierNiveau, new Position(20, 10)); // Offset for left map
+            maps.put(secondNiveau, new Position(610, 10)); // Offset for right map
 
             for (Map.Entry<JSONArray, Position> currentMap : maps.entrySet()) {
 
