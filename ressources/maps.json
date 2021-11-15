@@ -79,7 +79,7 @@
         "WALL"
       ],
       [
-        "END",
+        "FLOOR",
         "FLOOR",
         "FLOOR",
         "WALL",
@@ -191,7 +191,7 @@
         "WALL"
       ],
       [
-        "END",
+        "FLOOR",
         "FLOOR",
         "FLOOR",
         "WALL",
@@ -269,7 +269,7 @@
         "HOLE",
         "BOX",
         "FLOOR",
-        "END"
+        "FLOOR"
       ],
       [
         "WALL",
@@ -395,7 +395,7 @@
         "WALL"
       ],
       [
-        "END",
+        "FLOOR",
         "FLOOR",
         "HOLE",
         "FLOOR",
@@ -502,7 +502,7 @@
         "HOLE",
         "FLOOR",
         "WALL",
-        "END",
+        "FLOOR",
         "FLOOR",
         "WALL",
         "WALL",
@@ -614,7 +614,7 @@
         "FLOOR",
         "WALL",
         "WALL",
-        "END",
+        "FLOOR",
         "FLOOR",
         "BOX",
         "FLOOR",
