@@ -90,6 +90,7 @@ public class GameEngine implements KeyListener {
                     {
                         Position newBoxPosition = box.getFuturePosition(direction);
                         if (moveEntity(box, map, direction, newBoxPosition)) e.move(direction);
+                        else {e.hitWall(direction); return false;}
 
                     } else {
                         e.move(direction);
