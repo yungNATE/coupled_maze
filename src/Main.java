@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException, CloneNotSupportedException, IOException {
+    public static void main(String[] args) {
         //Window creation
         JFrame window = new JFrame("Labyrinth");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -2,9 +2,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,11 +20,18 @@ public class GameEngine implements KeyListener {
     private static Player player2;
     private ArrayList<Box> boxes;
     private int nombrePas = 0;
-    private JFrame fscore = null;
-    private JLabel score = null;
+    private JLabel moves = null;
+    private Fenetre fenetre;
 
     public void setUpGame(String mapName) {
-        map = new GameMap(mapName);
+        fenetre = new Fenetre(0, 0, Color.BLACK);
+        fenetre.setLayout(new BorderLayout());
+
+        fenetre.setPreferredSize(new Dimension(1200, 900));
+        fenetre.setTitle("Labyrinth");
+        fenetre.setLocationRelativeTo(null);
+
+        map = new GameMap(mapName, fenetre);
 
         Position start = map.left.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
         player1 = new Player(start.posX, start.posY, "ressources/pof.png", map);
@@ -39,7 +43,7 @@ public class GameEngine implements KeyListener {
             boxes.add(new Box(pos.posX, pos.posY, "ressources/textures/BOX.png", map));
         }
 
-        map.addKeyListener(this);
+        fenetre.addKeyListener(this);
     }
 
     public void movePlayers(Direction direction) {
@@ -105,16 +109,11 @@ public class GameEngine implements KeyListener {
     private void updateScore(Entity e) {
         if (e instanceof Player) {
             this.nombrePas++;
-            if (fscore == null) {
-                fscore = new JFrame("score");
-                score = new JLabel(nombrePas + "");
-                score.setForeground(Color.BLACK);
-                score.setFont(new Font("Verdana", Font.PLAIN, 18));
-                Border border = score.getBorder();
-                Border margin = new EmptyBorder(50, 20, 50, 20);
-                score.setBorder(new CompoundBorder(border, margin));
-                score.setHorizontalAlignment(JLabel.CENTER);
-                fscore.setPreferredSize(new Dimension(300,150));
+            if (moves == null) {
+                moves = new JLabel("Moves: " + nombrePas);
+                moves.setForeground(Color.WHITE);
+                moves.setFont(new Font("Verdana", Font.PLAIN, 18));
+                moves.setHorizontalAlignment(JLabel.CENTER);
 
                 //Create btn for refreshing page
                 JButton btn_refresh = new JButton("RESTART");
@@ -126,23 +125,27 @@ public class GameEngine implements KeyListener {
                 btn_refresh.requestFocus();
                 btn_refresh.setAlignmentX(Component.CENTER_ALIGNMENT);
                 btn_refresh.setFont(new Font("Tahoma", Font.BOLD, 20));
-                btn_refresh.setPreferredSize(new Dimension(250,30));
+
                 btn_refresh.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
+                        fenetre.dispose();
                         new GameEngine().setUpGame(map.name);
                     }
                 });
-                fscore.setLayout(new BorderLayout());
-                fscore.getContentPane().add(score, BorderLayout.NORTH);
-                fscore.getContentPane().add(btn_refresh,BorderLayout.SOUTH);
-                fscore.setResizable(false);
-                fscore.getContentPane().setBackground(Color.white);
-                fscore.pack();
-                fscore.setFocusableWindowState(false);
-                fscore.setVisible(true);
+
+                // create menu bar to add elements to
+                JMenuBar barRes = new JMenuBar();
+                barRes.setBackground(Color.BLACK);
+                barRes.setBorderPainted(false);
+                barRes.add(btn_refresh);
+                barRes.add(new JSeparator(SwingConstants.HORIZONTAL));
+                barRes.add(moves);
+
+                fenetre.setJMenuBar(barRes);
+
             } else {
-                score.setText(nombrePas + "");
+                moves.setText("Moves: " + nombrePas);
             }
         }
     }
@@ -157,7 +160,7 @@ public class GameEngine implements KeyListener {
 
         if (otherPlayer.nextTile != null && otherPlayer.nextTile.type == Tile.TypeCase.END) { // si les 2 joueurs sur la case END -> return true
             playSound("win");
-            int input = JOptionPane.showOptionDialog(null, "YOU WON!", "What a champion...", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            int input = JOptionPane.showOptionDialog(null, "YOU WON!", "What a champion...", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if (input == JOptionPane.OK_OPTION) {
                 System.exit(0);
             }

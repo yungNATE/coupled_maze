@@ -24,7 +24,7 @@ abstract public class Entity {
     Entity(int posX, int posY, String url, GameMap gameMap) {
         icon = new GameImage(url);
         pos = new Position(posX, posY);
-        fenetre = (Fenetre) gameMap;
+        fenetre = gameMap.fenetre;
         map = gameMap;
         isMoving = false;
         display();

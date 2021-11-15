@@ -28,15 +28,16 @@ public class EntityAnimation extends Thread {
             switch (ani) {
                 case MOVE:
                     moveOneTile();
+                    e.display();
                     break;
                 case HIT:
                     hitWall();
+                    e.display();
                     break;
                 case FALL:
                     fall();
                     break;
             }
-            e.display();
             e.isMoving = false; // L'animation est arrêtée
         }
 
