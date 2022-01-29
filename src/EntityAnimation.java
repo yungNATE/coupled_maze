@@ -17,7 +17,7 @@ public class EntityAnimation extends Thread {
     public EntityAnimation(Entity entity, Animation a) {
         e = entity;
         ani = a;
-        fenetre = entity.fenetre;
+        fenetre = entity.map;
     }
 
     @Override

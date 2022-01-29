@@ -12,7 +12,6 @@ enum Direction {UP, DOWN, RIGHT, LEFT}
 abstract public class Entity {
 
     static int STEP_PIXELS = 50;
-    Fenetre fenetre;
     GameImage icon;
     Position pos;
     GameMap map;
@@ -24,14 +23,13 @@ abstract public class Entity {
     Entity(int posX, int posY, String url, GameMap gameMap) {
         icon = new GameImage(url);
         pos = new Position(posX, posY);
-        fenetre = gameMap.fenetre;
         map = gameMap;
         isMoving = false;
         display();
     }
 
     public void display(){
-        icon.display(fenetre, pos.posX, pos.posY);
+        icon.display(map, pos.posX, pos.posY);
     }
 
     public void move(Direction direction) {

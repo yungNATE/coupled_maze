@@ -21,17 +21,10 @@ public class GameEngine implements KeyListener {
     private ArrayList<Box> boxes;
     private int nombrePas = 0;
     private JLabel moves = null;
-    private Fenetre fenetre;
 
     public void setUpGame(String mapName) {
-        fenetre = new Fenetre(0, 0, Color.BLACK);
-        fenetre.setLayout(new BorderLayout());
 
-        fenetre.setPreferredSize(new Dimension(1200, 900));
-        fenetre.setTitle("Labyrinth");
-        fenetre.setLocationRelativeTo(null);
-
-        map = new GameMap(mapName, fenetre);
+        map = new GameMap(mapName);
 
         Position start = map.left.entrySet().stream().filter(v -> v.getValue().type == Tile.TypeCase.START).findFirst().orElseThrow().getKey();
         player1 = new Player(start.posX, start.posY, "ressources/pof.png", map);
@@ -43,7 +36,7 @@ public class GameEngine implements KeyListener {
             boxes.add(new Box(pos.posX, pos.posY, "ressources/textures/BOX.png", map));
         }
 
-        fenetre.addKeyListener(this);
+        map.addKeyListener(this);
     }
 
     public void movePlayers(Direction direction) {
@@ -130,7 +123,7 @@ public class GameEngine implements KeyListener {
                 btn_refresh.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        fenetre.dispose();
+                        map.dispose();
                         new GameEngine().setUpGame(map.name);
                     }
                 });
@@ -143,7 +136,7 @@ public class GameEngine implements KeyListener {
                 barRes.add(new JSeparator(SwingConstants.HORIZONTAL));
                 barRes.add(moves);
 
-                fenetre.setJMenuBar(barRes);
+                map.setJMenuBar(barRes);
 
             } else {
                 moves.setText("Moves: " + nombrePas);

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GameMap {
+public class GameMap extends Fenetre {
 
     //PROP
     public HashMap<Position, Tile> left;
@@ -17,12 +17,16 @@ public class GameMap {
     int tileSize = 50;
     List<Position> caisses;
     String name;
-    Fenetre fenetre;
 
     //CONSTR
-    public GameMap(String map, Fenetre f) {
+    public GameMap(String map) {
+    	super (0, 0, Color.BLACK);
+    	this.setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(1200, 900));
+        this.setTitle("Labyrinth");
+        this.setLocationRelativeTo(null);
+        
         name = map;
-        fenetre = f;
         setUpLabyrinths(map);
         drawMaps();
     }
@@ -34,7 +38,7 @@ public class GameMap {
         int posYTile, posXTile; //px
 
         HashMap<Position, Tile> currentLabyrinth = new HashMap<>();
-        caisses = new ArrayList();
+        caisses = new ArrayList<Position>();
 
         try {
             Object obj = parser.parse(new FileReader("ressources/maps.json"));
@@ -81,7 +85,7 @@ public class GameMap {
     public void drawMaps() {
         for (HashMap<Position, Tile> map : List.of(left, right)) {
             for (var entry : map.entrySet()) {
-                entry.getValue().afficher(fenetre);
+                entry.getValue().afficher(this);
             }
         }
     }
