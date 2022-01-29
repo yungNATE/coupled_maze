@@ -124,8 +124,11 @@ public class EntityAnimation extends Thread {
     public void fall() {
         moveOneTile(); // on avance sur le trou
 
-        playSound("fall");
-
+        if (e instanceof Player)
+		{
+			playSound("fall");
+		}
+		
         for (int i = 0; i < STEP_PIXELS; i += STEP_PIXELS / 10) {
             Image newimg = e.icon.icon.getImage().getScaledInstance(STEP_PIXELS - i, STEP_PIXELS - i, java.awt.Image.SCALE_SMOOTH);
             GameImage small = new GameImage(new ImageIcon(newimg));
